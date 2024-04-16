@@ -16,25 +16,6 @@
                 <li class="nav-small-cap">
                     <span class="hide-menu text-white">Data Master</span>
                 </li>
-                <li class="sidebar-item"> <a
-                        class="sidebar-link {{ Str::startsWith(request()->path(), 'hr/kriteria') ? 'active' : '' }}"
-                        href="{{ route('hr.kriteria') }}">
-                        <i data-feather="folder" class="feather-icon text-white"></i>
-                        <span class="hide-menu text-white">Kelola Kriteria</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a
-                        class="sidebar-link sidebar-link {{ Str::startsWith(request()->path(), 'hr/sub-kriteria') ? 'active' : '' }}"
-                        href="#">
-                        <i data-feather="check-square" class="feather-icon text-white"></i>
-                        <span class="hide-menu text-white">Kelola Sub Kriteria</span>
-                    </a>
-                    <ul class="collapse">
-                        <li class="p-3"><a href="" style="padding-left: 30px;" class="text-white">Left Sidebar</a></li>
-                        <li class="p-3"><a href="" style="padding-left: 30px;" class="text-white">Horizontal Sidebar</a></li>
-                    </ul>
-                </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link {{ Str::startsWith(request()->path(), 'hr/manajemen-user') ? 'active' : '' }}"
                         href="{{ route('hr.manajemen.user') }}"><i data-feather="clipboard"
@@ -60,11 +41,21 @@
                     <span class="hide-menu text-white">Penilaian</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link {{ Str::startsWith(request()->path(), 'hr/kelola-penilaian-detail') ? 'active' : '' }}"
-                        href="{{ route('hr.kelola.penilaian') }}"><i data-feather="clipboard"
-                            class="feather-icon text-white"></i>
+                    <a
+                        class="sidebar-link sidebar-link {{ 'hr/kriteria' == request()->path() ? 'active' : '' }} {{ 'hr/sub-kriteria' == request()->path() ? 'active' : '' }}"
+                        href="#">
+                        <i data-feather="check-square" class="feather-icon text-white"></i>
                         <span class="hide-menu text-white">Kelola Penilaian</span>
+                        <i data-feather="arrow-down" class="feather-icon text-white"></i>
                     </a>
+                    <ul class="collapse">
+                        <li class="p-3"><a href="{{ route('hr.jenis.penilaian') }}" style="padding-left: 30px;" class="text-white">Jenis Penilaian</a></li>
+                        <li class="p-3"><a href="{{ route('hr.kriteria') }}" style="padding-left: 30px;" class="text-white">Kriteria</a></li>
+                        <li class="p-3"><a href="{{ route('hr.sub.kriteria') }}" style="padding-left: 30px;" class="text-white">Sub Kriteria</a></li>
+                        <li class="p-3"><a href="{{ route('hr.kelola.penilai') }}" style="padding-left: 30px;" class="text-white">Kelola Penilai</a></li>
+                        <li class="p-3"><a href="{{ route('hr.sub.kriteria') }}" style="padding-left: 30px;" class="text-white">Kelola Hasil Penilaian</a></li>
+                        <li class="p-3"><a href="{{ route('hr.sub.kriteria') }}" style="padding-left: 30px;" class="text-white">Laporan Hasil Penilaian</a></li>
+                    </ul>
                 </li>
                 <li class="nav-small-cap">
                     <span class="hide-menu text-white">Report</span>

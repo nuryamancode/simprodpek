@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hasil_penilaian_kriteria', function (Blueprint $table) {
+        Schema::create('jenis_penilaian', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('periode_id');
-            $table->foreign('periode_id')->references('id')->on('periode')->onDelete('cascade');
-            $table->decimal('total_nilai_perkriteria');
+            $table->string('nama_penilai');
+            $table->decimal('nilai_bobot');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hasil_penilaian_kriteria');
+        Schema::dropIfExists('jenis_penilaian');
     }
 };

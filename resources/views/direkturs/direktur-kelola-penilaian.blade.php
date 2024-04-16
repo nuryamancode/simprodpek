@@ -20,7 +20,6 @@
                 @if (session('success'))
                     <div class="alert alert-success mt-2 text-start" style="margin-left: 45px; margin-right: 45px">
                         {{ session('success') }}
-                        {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
                     </div>
                 @endif
                 <div class="text-end mb-3">

@@ -21,14 +21,14 @@ class UserSeeder extends Seeder
         User::create(
             [
                 'email' => "human@gmail.com",
-                'password' => bcrypt('human1212'),
+                'password' => bcrypt('password'),
                 'role' => 'Human Resource',
             ]
         );
         User::create(
             [
                 'email' => "direktur@gmail.com",
-                'password' => bcrypt('direktur'),
+                'password' => bcrypt('password'),
                 'role' => 'Direktur',
             ]
         );
@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             [
                 'email' => "karyawan1@gmail.com",
                 'email_verified_at'=>'2024-03-28 11:07:30',
-                'password' => bcrypt('karyawan'),
+                'password' => bcrypt('password'),
                 'role' => 'Karyawan',
             ]
         );
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
             [
                 'email' => "karyawan2@gmail.com",
                 'email_verified_at'=>'2024-03-28 11:07:30',
-                'password' => bcrypt('karyawan'),
+                'password' => bcrypt('password'),
                 'role' => 'Karyawan',
             ]
         );
@@ -52,7 +52,7 @@ class UserSeeder extends Seeder
             [
                 'email' => "karyawan3@gmail.com",
                 'email_verified_at'=>'2024-03-28 11:07:30',
-                'password' => bcrypt('karyawan'),
+                'password' => bcrypt('password'),
                 'role' => 'Karyawan',
             ]
         );

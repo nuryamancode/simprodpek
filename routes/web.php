@@ -15,7 +15,9 @@ use App\Http\Controllers\General\GeneralController;
 use App\Http\Controllers\HR\BidangController;
 use App\Http\Controllers\HR\DataKaryawanController;
 use App\Http\Controllers\HR\HRController;
+use App\Http\Controllers\HR\JenisPenilaianController;
 use App\Http\Controllers\HR\KelolaPenilaianController;
+use App\Http\Controllers\HR\KelolaPenilaiController;
 use App\Http\Controllers\HR\KriteriaController;
 use App\Http\Controllers\HR\LaporanKinerjaController;
 use App\Http\Controllers\HR\ManajemenUserController;
@@ -82,7 +84,7 @@ Route::middleware('auth')->group(function () {
         // tugas selesai
         Route::get('/tugas-selesai', [TugasProyekController::class, 'tugas_selesai'])->name('.tugas.selesai.karyawan');
         Route::get('/tugas-selesai-detail/{id_tugas}', [TugasProyekController::class, 'detail_tugas_selesai'])->name('.tugas.selesai.karyawan.detail');
-        
+
         // hasil kinerja karyawan
         Route::get('/hasil-kinerja', [HasilKinerjaController::class, 'index'])->name('.hasil.kinerja');
         Route::get('/hasil-kinerja-detail/{id}', [HasilKinerjaController::class, 'detail'])->name('.detail.hasil.kinerja');
@@ -175,17 +177,41 @@ Route::middleware('auth')->group(function () {
         Route::get('/data-karyawan-delete/{id}', [DataKaryawanController::class, 'delete'])->name('.delete.data.karyawan');
         Route::put('/data-karyawan-bidang/{id_karyawan}', [DataKaryawanController::class, 'tambah_bidang'])->name('.add.bidang.data.karyawan');
 
+        // jenispenilaian
+        Route::get('/jenis-penilaian', [JenisPenilaianController::class, 'index'])->name('.jenis.penilaian');
+        Route::get('/jenis-penilaian-delete/{id}', [JenisPenilaianController::class, 'delete'])->name('.delete.jenis.penilaian');
+        Route::post('/jenis-penilaian-save', [JenisPenilaianController::class, 'save'])->name('.save.jenis.penilaian');
+        Route::put('/jenis-penilaian-update/{id}', [JenisPenilaianController::class, 'update'])->name('.update.jenis.penilaian');
+
         // kriteria
         Route::get('/kriteria', [KriteriaController::class, 'index'])->name('.kriteria');
-        Route::get('/kriteria-delete/{kriteria}', [KriteriaController::class, 'delete'])->name('.delete.kriteria');
-        Route::post('/kriteria-save', [KriteriaController::class, 'save'])->name('.save.kriteria');
-        Route::put('/kriteria-update/{id_kriteria}', [KriteriaController::class, 'update'])->name('.update.kriteria');
+        // kriteria direktur
+        Route::get('/kriteria-direktur-delete/{kriteria}', [KriteriaController::class, 'delete_kriteria_direktur'])->name('.delete.kriteria.direktur');
+        Route::post('/kriteria-direktur-save', [KriteriaController::class, 'save_kriteria_direktur'])->name('.save.kriteria.direktur');
+        Route::put('/kriteria-direktur-update/{id_kriteria}', [KriteriaController::class, 'update_kriteria_direktur'])->name('.update.kriteria.direktur');
+
+        // kriteria rekan kerja
+        Route::get('/kriteria-rekan-kerja-delete/{kriteria}', [KriteriaController::class, 'delete_kriteria_rekan_kerja'])->name('.delete.kriteria.rekan.kerja');
+        Route::post('/kriteria-rekan-kerja-save', [KriteriaController::class, 'save_kriteria_rekan_kerja'])->name('.save.kriteria.rekan.kerja');
+        Route::put('/kriteria-rekan-kerja-update/{id_kriteria}', [KriteriaController::class, 'update_kriteria_rekan_kerja'])->name('.update.kriteria.rekan.kerja');
 
         // sub kriteria
         Route::get('/sub-kriteria', [SubKriteriaController::class, 'index'])->name('.sub.kriteria');
-        Route::get('/sub-kriteria-delete/{subKriteria}', [SubKriteriaController::class, 'delete'])->name('.delete.sub.kriteria');
-        Route::post('/sub-kriteria-save', [SubKriteriaController::class, 'save'])->name('.save.sub.kriteria');
-        Route::put('/sub-kriteria-update/{id_subkriteria}', [SubKriteriaController::class, 'update'])->name('.update.sub.kriteria');
+        // sub kriteria direktur
+        Route::get('/sub-kriteria-direktur-delete/{subKriteria}', [SubKriteriaController::class, 'delete_sub_direktur'])->name('.delete.sub.kriteria.direktur');
+        Route::post('/sub-kriteria-direktur-save', [SubKriteriaController::class, 'save_sub_direktur'])->name('.save.sub.kriteria.direktur');
+        Route::put('/sub-kriteria-direktur-update/{id_subkriteria}', [SubKriteriaController::class, 'update_sub_direktur'])->name('.update.sub.kriteria.direktur');
+
+        // sub kriteria rekan kerja
+        Route::get('/sub-kriteria-rekan-kerja-delete/{subKriteria}', [SubKriteriaController::class, 'delete_sub_rekan_kerja'])->name('.delete.sub.kriteria.rekan.kerja');
+        Route::post('/sub-kriteria-rekan-kerja-save', [SubKriteriaController::class, 'save_sub_rekan_kerja'])->name('.save.sub.kriteria.rekan.kerja');
+        Route::put('/sub-kriteria-rekan-kerja-update/{id_subkriteria}', [SubKriteriaController::class, 'update_sub_rekan_kerja'])->name('.update.sub.kriteria.rekan.kerja');
+
+        // kelola penilai
+        Route::get('/kelola-penilai', [KelolaPenilaiController::class, 'index'])->name('.kelola.penilai');
+        Route::get('/kelola-penilai-delete/{id}', [KelolaPenilaiController::class, 'delete'])->name('.delete.kelola.penilai');
+        Route::post('/kelola-penilai-save', [KelolaPenilaiController::class, 'save'])->name('.save.kelola.penilai');
+        Route::put('/kelola-penilai-update/{id}', [KelolaPenilaiController::class, 'update'])->name('.update.kelola.penilai');
 
         // manajemen user
         Route::get('/manajemen-user', [ManajemenUserController::class, 'index'])->name('.manajemen.user');
@@ -199,7 +225,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/kelola-penilaian-detail/{id}', [KelolaPenilaianController::class, 'detail'])->name('.detail.kelola.penilaian');
         Route::post('/kelola-penilaian-save', [KelolaPenilaianController::class, 'save'])->name('.save.kelola.penilaian');
         Route::put('/kelola-penilaian-update/{id}', [KelolaPenilaianController::class, 'update'])->name('.update.kelola.penilaian');
-        
+
         // laporan kinerja
         Route::get('/laporan-kinerja', [LaporanKinerjaController::class, 'index'])->name('.laporan.kinerja');
     });

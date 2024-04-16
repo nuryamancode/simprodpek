@@ -83,7 +83,16 @@
                     <span>
                         <i class="bi bi-file-earmark-person-fill"></i>
                     </span>
-                    <span class="hide-menu">Hasil Kinerja Karyawan</span>
+                    <span class="hide-menu">Penilaian Rekan Kerja</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link {{ 'karyawann/hasil-kinerja' == request()->path() ? 'active' : '' }} {{ 'karyawann/hasil-kinerja-detail' == request()->path() ? 'active' : '' }}"
+                    href="{{ route('karyawan.hasil.kinerja') }}" aria-expanded="false">
+                    <span>
+                        <i class="bi bi-file-earmark-person-fill"></i>
+                    </span>
+                    <span class="hide-menu">Lapora Hasil Penilaian</span>
                 </a>
             </li>
         </ul>

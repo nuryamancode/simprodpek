@@ -129,7 +129,7 @@
                     <span>
                         <i class="bi bi-file-earmark-person-fill"></i>
                     </span>
-                    <span class="hide-menu">Laporan Kinerja Karyawan</span>
+                    <span class="hide-menu">Laporan Hasil Penilaian</span>
                 </a>
             </li>
         </ul>
