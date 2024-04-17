@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\HR;
 
 use App\Http\Controllers\Controller;
-use App\Models\JenisPenilaian;
+use App\Models\Penilaian\JenisPenilaian;
 use App\Models\MHr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,10 +60,10 @@ class JenisPenilaianController extends Controller
     {
         $nilai_bobot = $request->input('nilai_bobot');
         $total_bobot = JenisPenilaian::sum('nilai_bobot') + $nilai_bobot;
-        if ($total_bobot > 100) {
-            alert()->toast('Nilai Bobot tidak lebih 100%', 'error');
-            return redirect()->back();
-        }
+        // if ($total_bobot > 100) {
+        //     alert()->toast('Nilai Bobot tidak lebih 100%', 'error');
+        //     return redirect()->back();
+        // }
         $jenispenilaian = JenisPenilaian::find($id);
         $jenispenilaian->nilai_bobot = $nilai_bobot;
         $jenispenilaian->update();

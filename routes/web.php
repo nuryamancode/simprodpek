@@ -145,11 +145,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/tim-save', [TimController::class, 'save'])->name('.save.tim');
 
         // penilaian
-        Route::get('/penilaian/{periode_id}', [PenilaianController::class, 'penilaian'])->name('.penilaian');
+        Route::get('/penilaian/{penilaiansatu_id}', [PenilaianController::class, 'penilaian'])->name('.penilaian');
         Route::post('/penilaian-save', [PenilaianController::class, 'hasil_penilaian'])->name('.hasil.penilaian');
+        Route::post('/penilaian-save-penilai{penilaiansatu_id}', [PenilaianController::class, 'save_penilaian_tahap_satu'])->name('.penilaian.satu');
+        Route::get('/penilaian', [PenilaianController::class, 'index'])->name('.kelola.penilaian');
 
-        // periode
-        Route::get('/kelola-penilaian', [PeriodeController::class, 'index'])->name('.kelola.penilaian');
 
     });
 

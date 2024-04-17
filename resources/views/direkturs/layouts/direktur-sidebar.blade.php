@@ -102,12 +102,12 @@
                 <span class="hide-menu">Penilaian</span>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link {{ Str::startsWith(request()->path(), 'direktur/kelola-penilaian') ? 'active' : '' }}"
+                <a class="sidebar-link {{ Str::startsWith(request()->path(), 'direktur/penilaian') ? 'active' : '' }}"
                     href="{{ route('direktur.kelola.penilaian') }}" aria-expanded="false">
                     <span>
                         <i class="bi bi-file-earmark-person-fill"></i>
                     </span>
-                    <span class="hide-menu">Kelola Penilaian</span>
+                    <span class="hide-menu">Penilaian</span>
                 </a>
             </li>
             <li class="nav-small-cap">

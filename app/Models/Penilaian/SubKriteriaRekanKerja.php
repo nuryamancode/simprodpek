@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Penilaian;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class SubKriteriaDirektur extends Model
+class SubKriteriaRekanKerja extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -15,14 +15,14 @@ class SubKriteriaDirektur extends Model
         "bobot_sub",
         "kriteria_id",
     ];
-    protected $table = 'sub_kriteria_direktur';
+    protected $table = 'sub_kriteria_rekan_kerja';
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
-    public function kriteriaDirektur() : BelongsTo
+    public function kriteriaRekanKerja() : BelongsTo
     {
-        return $this->belongsTo(KriteriaDirektur::class, 'kriteria_id');
+        return $this->belongsTo(KriteriaRekanKerja::class, 'kriteria_id');
     }
 }

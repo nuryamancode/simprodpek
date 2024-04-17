@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hasil_penilaian', function (Blueprint $table) {
+        Schema::create('hasil_penilaian_rekankerja', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('periode_id');
-            $table->foreign('periode_id')->references('id')->on('periode')->onDelete('cascade');
-            $table->decimal('total_nilai_akhir');
+            $table->unsignedBigInteger('tahap_satu_id');
+            $table->foreign('tahap_satu_id')->references('id')->on('penilaian_tahap_satu')->onDelete('cascade');
+            $table->decimal('total_akhir');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hasil_penilaian');
+        Schema::dropIfExists('hasil_penilaian_rekankerja');
     }
 };

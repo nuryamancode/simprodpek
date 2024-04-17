@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\HR;
 
 use App\Http\Controllers\Controller;
-use App\Models\KriteriaDirektur;
-use App\Models\KriteriaRekanKerja;
+use App\Models\Penilaian\KriteriaDirektur;
+use App\Models\Penilaian\KriteriaRekanKerja;
 use App\Models\MHr;
-use App\Models\MKriteria;
-use App\Models\MSubKriteria;
-use App\Models\SubKriteriaDirektur;
-use App\Models\SubKriteriaRekanKerja;
+use App\Models\Penilaian\SubKriteriaDirektur;
+use App\Models\Penilaian\SubKriteriaRekanKerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

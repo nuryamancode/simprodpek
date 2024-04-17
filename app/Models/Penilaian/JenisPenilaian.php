@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Penilaian;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,11 +15,12 @@ class JenisPenilaian extends Model
     ];
     protected $table = 'jenis_penilaian';
     protected $casts = [
-        'created_at'=> 'datetime',
-        'updated_at'=> 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
-    public function kelolapenilai() : HasOne{
-        return $this->hasOne(KelolaPenilai::class);
+    public function kelolapenilai(): HasOne
+    {
+        return $this->hasOne(Penilai::class);
     }
 }

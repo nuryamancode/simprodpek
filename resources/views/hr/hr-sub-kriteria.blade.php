@@ -323,8 +323,12 @@
 
 @section('js')
     <script>
-        new DataTable('#subkriteriadirektur');
-        new DataTable('#subkriteriarekankerja');
+        new DataTable('#subkriteriadirektur', {
+            "pageLength": 5
+        });
+        new DataTable('#subkriteriarekankerja',{
+            "pageLength": 5
+        });
 
         function konfirmasiHapus(deleteUrl) {
             Swal.fire({

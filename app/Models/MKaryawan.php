@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Penilaian\PenilaianSatu;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,8 +42,8 @@ class MKaryawan extends Model
     {
         return $this->hasOne(MTugas::class, 'm_karyawan_id');
     }
-    public function periode() : HasOne
+    public function penilaiansatu() : HasOne
     {
-        return $this->hasOne(MPeriode::class);
+        return $this->hasOne(PenilaianSatu::class, 'karyawan_id');
     }
 }

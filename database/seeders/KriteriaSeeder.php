@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\MKriteria;
+use App\Models\Penilaian\KriteriaDirektur;
+use App\Models\Penilaian\KriteriaRekanKerja;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,25 +15,33 @@ class KriteriaSeeder extends Seeder
      */
     public function run(): void
     {
-        MKriteria::create([
-            "nama_kriteria" => "Kompetensi Intelektual",
-            "bobot_kriteria" => 40,
+        // kriteria direktur
+        KriteriaDirektur::create([
+            'nama_kriteria'=>'Kompetensi Teknis',
+            'bobot_kriteria'=>60,
         ]);
-        MKriteria::create([
-            "nama_kriteria" => "Kompetensi Fisik",
-            "bobot_kriteria" => 10,
+        KriteriaDirektur::create([
+            'nama_kriteria'=>'Kompetensi Pribadi',
+            'bobot_kriteria'=>20,
         ]);
-        MKriteria::create([
-            "nama_kriteria" => "Kompetensi Pribadi",
-            "bobot_kriteria" => 20,
+        KriteriaDirektur::create([
+            'nama_kriteria'=>'Kompetensi Komitmen dan Motivasi ',
+            'bobot_kriteria'=>20,
         ]);
-        MKriteria::create([
-            "nama_kriteria" => "Kompetensi Sosial",
-            "bobot_kriteria" => 10,
+
+
+        // kriteria rekan kerja
+        KriteriaRekanKerja::create([
+            'nama_kriteria'=>'Kompetensi Teknis',
+            'bobot_kriteria'=>40,
         ]);
-        MKriteria::create([
-            "nama_kriteria" => "Kompetensi Spritual",
-            "bobot_kriteria" => 20,
+        KriteriaRekanKerja::create([
+            'nama_kriteria'=>'Kompetensi Pribadi',
+            'bobot_kriteria'=>30,
+        ]);
+        KriteriaRekanKerja::create([
+            'nama_kriteria'=>'Kompetensi Komitmen dan Motivasi ',
+            'bobot_kriteria'=>30,
         ]);
     }
 }

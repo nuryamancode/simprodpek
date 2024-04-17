@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Penilaian;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class KriteriaRekanKerja extends Model
+class KriteriaDirektur extends Model
 {
     use HasFactory;
     protected $fillable = [
         "nama_kriteria",
         "bobot_kriteria",
     ];
-    protected $table = 'kriteria_rekan_kerja';
+    protected $table = 'kriteria_direktur';
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
 
-    public function SubKriteriaRekanKerja(): HasOne
+    public function SubKriteriaDirektur(): HasOne
     {
-        return $this->hasOne(SubKriteriaRekanKerja::class, 'kriteria_id');
+        return $this->hasOne(SubKriteriaDirektur::class, 'kriteria_id');
     }
 }

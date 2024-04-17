@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\HR;
 
 use App\Http\Controllers\Controller;
-use App\Models\JenisPenilaian;
-use App\Models\KelolaPenilai;
+use App\Models\Penilaian\JenisPenilaian;
 use App\Models\MHr;
+use App\Models\Penilaian\Penilai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +17,7 @@ class KelolaPenilaiController extends Controller
         $hr = MHr::where('user_id', $user_id)->first();
         $role = Auth::user()->role;
         $jenispenilaian = JenisPenilaian::all();
-        $kelolapenilai = KelolaPenilai::all();
+        $kelolapenilai = Penilai::all();
         $data = [
             'role' => $role,
             'hr' => $hr,
@@ -29,10 +29,15 @@ class KelolaPenilaiController extends Controller
 
     public function save(Request $request)
     {
+        $request->validate([
+            'periode'=>'required'
+        ],[
+            'periode.required'=> 'Periode harus diisi dengan contoh: Januari 2024'
+        ]);
         $periode = $request->input('periode');
         $jenispenilai = $request->input('jenis_penilai_id');
         $jenidinilai = $request->input('jenis_dinilai');
-        $data = KelolaPenilai::create([
+        $data = Penilai::create([
             'periode' => $periode,
             'jenis_penilai_id' => $jenispenilai,
             'jenis_dinilai' => $jenidinilai
@@ -44,10 +49,15 @@ class KelolaPenilaiController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'periode'=>'required'
+        ],[
+            'periode.required'=> 'Periode harus diisi dengan contoh: Januari 2024'
+        ]);
         $periode = $request->input('periode');
         $jenis_penilai_id = $request->input('jenis_penilai_id');
         $jenis_dinilai = $request->input('jenis_dinilai');
-        $penilai = KelolaPenilai::find($id);
+        $penilai = Penilai::find($id);
         $penilai->periode = $periode;
         $penilai->jenis_penilai_id = $jenis_penilai_id;
         $penilai->jenis_dinilai = $jenis_dinilai;
@@ -58,7 +68,7 @@ class KelolaPenilaiController extends Controller
 
     public function delete($id)
     {
-        $data = KelolaPenilai::find($id);
+        $data = Penilai::find($id);
         $data->delete();
         alert()->toast('Data berhasil dihapus', 'success');
         return redirect()->back();
