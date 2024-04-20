@@ -19,7 +19,7 @@ class JenisPenilaian extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function kelolapenilai(): HasOne
+    public function penilai(): HasOne
     {
         return $this->hasOne(Penilai::class);
     }

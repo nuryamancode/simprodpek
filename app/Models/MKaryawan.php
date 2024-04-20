@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Penilaian\Penilaiankaryawan;
+use App\Models\Penilaian\PenilaianRekanKerja;
 use App\Models\Penilaian\PenilaianSatu;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,8 +44,12 @@ class MKaryawan extends Model
     {
         return $this->hasOne(MTugas::class, 'm_karyawan_id');
     }
-    public function penilaiansatu() : HasOne
+    public function penilaiankaryawan() : HasOne
     {
-        return $this->hasOne(PenilaianSatu::class, 'karyawan_id');
+        return $this->hasOne(Penilaiankaryawan::class, 'karyawan_id');
+    }
+    public function penilaianrekankerja() : HasOne
+    {
+        return $this->hasOne(PenilaianRekanKerja::class, 'karyawan_id');
     }
 }

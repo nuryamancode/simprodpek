@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('penilaian_tahap_satu', function (Blueprint $table) {
+        Schema::create('total_akhir', function (Blueprint $table) {
             $table->id();
-            $table->enum('status_penilaian',['Sudah dinilai', 'Belum dinilai'])->default('Belum dinilai');
             $table->unsignedBigInteger('karyawan_id');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
-            $table->unsignedBigInteger('penilai_id');
-            $table->foreign('penilai_id')->references('id')->on('kelola_penilai')->onDelete('cascade');
+            $table->unsignedBigInteger('hasildirektur_id')->nullable();
+            $table->foreign('hasildirektur_id')->references('id')->on('hasil_penilaian_direktur');
+            $table->unsignedBigInteger('hasilrekankerja_id')->nullable();
+            $table->foreign('hasilrekankerja_id')->references('id')->on('hasil_penilaian_rekankerja_total');
+            $table->integer('periode');
+            $table->decimal('total_akhir');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('penilaian_tahap_satu');
+        Schema::dropIfExists('total_akhir');
     }
 };

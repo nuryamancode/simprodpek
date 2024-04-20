@@ -12,15 +12,20 @@ class PenilaianDua extends Model
     protected $table = 'penilaian_tahap_dua';
     protected $fillable = [
     'rating',
-    'tahap_satu_id',
+    'penilaianrekan_id',
+    'penilaiankaryawan_id',
     ];
     protected $casts = [
         'created_at'=> 'datetime',
         'updated_at'=> 'datetime',
     ];
 
-    public function penilaiansatu() : BelongsTo
+    public function penilaiankaryawan(): BelongsTo
     {
-        return $this->belongsTo(PenilaianSatu::class);
+        return $this->belongsTo(Penilaiankaryawan::class);
+    }
+    public function penilaianrekankerja() : BelongsTo
+    {
+        return $this->belongsTo(PenilaianRekanKerja::class);
     }
 }

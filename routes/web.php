@@ -24,6 +24,7 @@ use App\Http\Controllers\HR\ManajemenUserController;
 use App\Http\Controllers\HR\SubKriteriaController;
 use App\Http\Controllers\Karyawan\HasilKinerjaController;
 use App\Http\Controllers\Karyawan\KaryawanController;
+use App\Http\Controllers\Karyawan\PenilaianRekanKerjaController;
 use App\Http\Controllers\Karyawan\TugasProyekController;
 use Illuminate\Support\Facades\Route;
 
@@ -85,9 +86,17 @@ Route::middleware('auth')->group(function () {
         Route::get('/tugas-selesai', [TugasProyekController::class, 'tugas_selesai'])->name('.tugas.selesai.karyawan');
         Route::get('/tugas-selesai-detail/{id_tugas}', [TugasProyekController::class, 'detail_tugas_selesai'])->name('.tugas.selesai.karyawan.detail');
 
+        //penilaian rekan kerja
+        Route::get('/penilaian-rekankerja', [PenilaianRekanKerjaController::class, 'index'])->name('.penilaian.rekankerja');
+        Route::post('/penilaian-rekankerja/save/{penilaiansatu_id}', [PenilaianRekanKerjaController::class, 'save_penilaianrekan'])->name('.penilaian.satu');
+        Route::get('/penilaian/{penilaiansatu_id}', [PenilaianRekanKerjaController::class, 'penilaian'])->name('.penilaian');
+        Route::post('/penilaian-save', [PenilaianRekanKerjaController::class, 'hasil_penilaian'])->name('.hasil.penilaian');
+
+
+
         // hasil kinerja karyawan
-        Route::get('/hasil-kinerja', [HasilKinerjaController::class, 'index'])->name('.hasil.kinerja');
-        Route::get('/hasil-kinerja-detail/{id}', [HasilKinerjaController::class, 'detail'])->name('.detail.hasil.kinerja');
+        // Route::get('/hasil-kinerja', [HasilKinerjaController::class, 'index'])->name('.hasil.kinerja');
+        // Route::get('/hasil-kinerja-detail/{id}', [HasilKinerjaController::class, 'detail'])->name('.detail.hasil.kinerja');
 
     });
 
@@ -145,9 +154,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/tim-save', [TimController::class, 'save'])->name('.save.tim');
 
         // penilaian
-        Route::get('/penilaian/{penilaiansatu_id}', [PenilaianController::class, 'penilaian'])->name('.penilaian');
+        Route::get('/penilaian/{penilaian_id}', [PenilaianController::class, 'penilaian'])->name('.penilaian');
         Route::post('/penilaian-save', [PenilaianController::class, 'hasil_penilaian'])->name('.hasil.penilaian');
-        Route::post('/penilaian-save-penilai{penilaiansatu_id}', [PenilaianController::class, 'save_penilaian_tahap_satu'])->name('.penilaian.satu');
+        Route::post('/penilaian-save-penilai{penilaian_id}', [PenilaianController::class, 'save_penilaiankaryawan'])->name('.penilaian.satu');
         Route::get('/penilaian', [PenilaianController::class, 'index'])->name('.kelola.penilaian');
 
 

@@ -1,6 +1,6 @@
-@extends('direkturs.layouts.direktur-base', ['title' => 'Penilaian Karyawan'])
+@extends('karyawans.layouts.karyawan-base', ['title' => 'Penilaian Rekan Kerja'])
 
-@section('content-direktur')
+@section('content-karyawan')
     <div class="container-fluid">
         <div class="card">
             @if ($errors->any())
@@ -15,7 +15,7 @@
                 </div>
             @endif
             <div class="card-header">
-                <h2 class="title-name">Penilaian Karyawan</h2>
+                <h2 class="title-name">Penilaian Rekan Kerja</h2>
             </div>
             <div class="card-body">
                 @if ($subkriteria === null)
@@ -23,18 +23,22 @@
                         <h1 class="main-title">Data Kosong</h1>
                     </div>
                 @else
-                    <form action="{{ route('direktur.hasil.penilaian') }}" method="post">
+                    <form action="{{ route('karyawan.hasil.penilaian') }}" method="post">
                         @csrf
                         <input type="hidden" name="penilaian_id" value="{{ $penilaian_id }}">
                         <div id="penilaian">
                             @foreach ($sub as $item)
-                                @if (!$loop->first && $item->kriteriaDirektur->nama_kriteria !== $sub[$loop->index - 1]->kriteriaDirektur->nama_kriteria)
+                                @if (
+                                    !$loop->first &&
+                                        $item->kriteriaRekanKerja->nama_kriteria !== $sub[$loop->index - 1]->kriteriaRekanKerja->nama_kriteria)
                         </div>
                 @endif
 
-                @if ($loop->first || $item->kriteriaDirektur->nama_kriteria !== $sub[$loop->index - 1]->kriteriaDirektur->nama_kriteria)
+                @if (
+                    $loop->first ||
+                        $item->kriteriaRekanKerja->nama_kriteria !== $sub[$loop->index - 1]->kriteriaRekanKerja->nama_kriteria)
                     <div class="card-header">
-                        <h3 class="font-bold">{{ $item->kriteriaDirektur->nama_kriteria }}</h3>
+                        <h3 class="font-bold">{{ $item->kriteriaRekanKerja->nama_kriteria }}</h3>
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
@@ -86,9 +90,11 @@
         </div>
 
         <div class="d-grid gap-2">
-            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#persetujuanModal">Kirim</button>
+            <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                data-bs-target="#persetujuanModal">Kirim</button>
         </div>
-        <div class="modal fade" id="persetujuanModal" tabindex="-1" aria-labelledby="persetujuanModalLabel" aria-hidden="true">
+        <div class="modal fade" id="persetujuanModal" tabindex="-1" aria-labelledby="persetujuanModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog  modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">

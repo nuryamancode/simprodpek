@@ -22,7 +22,7 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <div class="mb-5">
+                {{-- <div class="mb-5">
                     <form id="" action=""{{ route('direktur.kelola.penilaian') }} method="GET">
                         @csrf
                         <div class="mb-3">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> --}}
                 <div class="text-end mb-5">
                 </div>
                 <table id="periode" class="table table-responsive table-bordered mt-3 table table-striped nowrap"
@@ -61,83 +61,79 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($penilaian)
-                            @foreach ($penilaian as $item)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td class="text-center">{{ $item->periode }}</td>
-                                    <td class="table-striped-columns">
-                                        @foreach ($karyawan as $item2)
-                                            <ul>
-                                                <li>{{ $item2->nama_lengkap }}</li>
-                                            </ul>
-                                        @endforeach
-                                    </td>
-                                    <td class="table-striped-columns">
-                                        @foreach ($karyawan as $item3)
-                                            <ul>
-                                                <li>{{ $item3->bidang->nama_bidang }}</li>
-                                            </ul>
-                                        @endforeach
-                                    </td>
-                                    <td class="text-center">
-                                        @foreach ($karyawan as $item4)
-                                            <ul>
-                                                <li>
-                                                    @php
-                                                        $tahapsatu = \App\Models\Penilaian\PenilaianSatu::where(
-                                                            'karyawan_id',
-                                                            $item4->id,
-                                                        )
-                                                            ->where('penilai_id', $item->id)
-                                                            ->first();
-                                                    @endphp
-                                                    @if (!$tahapsatu || $tahapsatu->status_penilaian == 'Belum dinilai')
-                                                        <span class="bg-danger p-1 rounded text-white"> Belum Dinilai</span>
-                                                    @else
-                                                        <span class="bg-success p-1 rounded text-white">Sudah Dinilai</span>
-                                                    @endif
-                                                </li>
-                                            </ul>
-                                        @endforeach
-                                    </td>
-                                    <td class="text-center">
-                                        @foreach ($karyawan as $item5)
-                                            <ul>
-                                                <li>
-                                                    @php
-                                                        $tahapsatu = \App\Models\Penilaian\PenilaianSatu::where(
-                                                            'karyawan_id',
-                                                            $item5->id,
-                                                        )
-                                                            ->where('penilai_id', $item->id)
-                                                            ->first();
-                                                    @endphp
-                                                    @if (!$tahapsatu || $tahapsatu->status_penilaian == 'Belum dinilai')
-                                                        <form action="{{ route('direktur.penilaian.satu', $item->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="karyawan_id"
-                                                                value="{{ $item3->id }}">
-                                                            <input type="hidden" name="penilai_id"
-                                                                value="{{ $item->id }}">
-                                                            <button type="submit" class="btn btn-dark fs-4">
-                                                                <i class="bi bi-plus-circle-dotted"></i>
-                                                            </button>
-                                                        </form>
-                                                    @else
-                                                        <span class="btn btn-success disabled">
-                                                            <i class="bi bi-check-circle"></i>
-                                                        </span>
-                                                    @endif
-                                                </li>
-                                            </ul>
-                                        @endforeach
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @else
-                        @endif
+                        @foreach ($penilaian as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $item->periode }}</td>
+                                <td class="table-striped-columns">
+                                    @foreach ($karyawan as $item2)
+                                        <ul>
+                                            <li>{{ $item2->nama_lengkap }}</li>
+                                        </ul>
+                                    @endforeach
+                                </td>
+                                <td class="table-striped-columns">
+                                    @foreach ($karyawan as $item3)
+                                        <ul>
+                                            <li>{{ $item3->bidang->nama_bidang }}</li>
+                                        </ul>
+                                    @endforeach
+                                </td>
+                                <td class="text-center">
+                                    @foreach ($karyawan as $item4)
+                                        <ul>
+                                            <li>
+                                                @php
+                                                    $tahapsatu = \App\Models\Penilaian\PenilaianKaryawan::where(
+                                                        'karyawan_id',
+                                                        $item4->id,
+                                                    )
+                                                        ->where('periode_id', $item->id)
+                                                        ->first();
+                                                @endphp
+                                                @if (!$tahapsatu || $tahapsatu->status_penilaian == 'Belum dinilai')
+                                                    <span class="bg-danger p-1 rounded text-white"> Belum Dinilai</span>
+                                                @else
+                                                    <span class="bg-success p-1 rounded text-white">Sudah Dinilai</span>
+                                                @endif
+                                            </li>
+                                        </ul>
+                                    @endforeach
+                                </td>
+                                <td class="text-center">
+                                    @foreach ($karyawan as $item5)
+                                        <ul>
+                                            <li>
+                                                @php
+                                                    $tahapsatu = \App\Models\Penilaian\PenilaianKaryawan::where(
+                                                        'karyawan_id',
+                                                        $item5->id,
+                                                    )
+                                                        ->where('periode_id', $item->id)
+                                                        ->first();
+                                                @endphp
+                                                @if (!$tahapsatu || $tahapsatu->status_penilaian == 'Belum dinilai')
+                                                    <form action="{{ route('direktur.penilaian.satu', $item->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="karyawan_id"
+                                                            value="{{ $item5->id }}">
+                                                        <input type="hidden" name="periode_id" value="{{ $item->id }}">
+                                                        <button type="submit" class="btn btn-dark fs-4">
+                                                            <i class="bi bi-plus-circle-dotted"></i>
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <span class="btn btn-success disabled">
+                                                        <i class="bi bi-check-circle"></i>
+                                                    </span>
+                                                @endif
+                                            </li>
+                                        </ul>
+                                    @endforeach
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

@@ -12,15 +12,17 @@ class HasilPenilaianDirektur extends Model
     protected $table = "hasil_penilaian_direktur";
     protected $fillable = [
         'total_akhir',
-        'tahap_satu_id',
+        'periode',
+        'karyawan_id',
+        'penilaian_id',
     ];
     protected $casts = [
-        'created_at'=> 'datetime',
-        'updated_at'=> 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
-    public function penilaiansatu() : BelongsTo
+    public function penilaiankaryawan(): BelongsTo
     {
-        return $this->belongsTo(PenilaianSatu::class);
+        return $this->belongsTo(Penilaiankaryawan::class, 'periode_id');
     }
 }

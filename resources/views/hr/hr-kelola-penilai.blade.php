@@ -82,8 +82,8 @@
                         @csrf
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Periode</label>
-                            <input type="text" class="form-control" id="recipient-name"
-                                name="periode" value="{{ old('periode') }}" placeholder="Contoh: Januari 2024">
+                            <input type="number" class="form-control" id="recipient-name"
+                                name="periode" value="{{ old('periode') }}" placeholder="Contoh: 2024">
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Jenis Penilai</label>

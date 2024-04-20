@@ -74,21 +74,24 @@
             </li>
             <li class="nav-small-cap">
                 <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                <span class="hide-menu">Laporan</span>
+                <span class="hide-menu">Penilaian</span>
             </li>
-
             <li class="sidebar-item">
-                <a class="sidebar-link {{ 'karyawann/hasil-kinerja' == request()->path() ? 'active' : '' }} {{ 'karyawann/hasil-kinerja-detail' == request()->path() ? 'active' : '' }}"
-                    href="{{ route('karyawan.hasil.kinerja') }}" aria-expanded="false">
+                <a class="sidebar-link {{ Str::startsWith(request()->path(), 'karyawann/penilaian/') ? 'active' : '' }}"
+                    href="{{ route('karyawan.penilaian.rekankerja') }}" aria-expanded="false">
                     <span>
                         <i class="bi bi-file-earmark-person-fill"></i>
                     </span>
                     <span class="hide-menu">Penilaian Rekan Kerja</span>
                 </a>
             </li>
+            <li class="nav-small-cap">
+                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                <span class="hide-menu">Laporan</span>
+            </li>
             <li class="sidebar-item">
                 <a class="sidebar-link {{ 'karyawann/hasil-kinerja' == request()->path() ? 'active' : '' }} {{ 'karyawann/hasil-kinerja-detail' == request()->path() ? 'active' : '' }}"
-                    href="{{ route('karyawan.hasil.kinerja') }}" aria-expanded="false">
+                    href="" aria-expanded="false">
                     <span>
                         <i class="bi bi-file-earmark-person-fill"></i>
                     </span>

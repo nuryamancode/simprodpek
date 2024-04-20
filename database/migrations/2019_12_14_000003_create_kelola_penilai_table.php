@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('periode');
             $table->enum('jenis_dinilai', ['Direktur To Karyawan','Karyawan To Rekan Kerja']);
-            $table->enum('status_penilaian', ['Sudah Dinilai','Belum Dinilai'])->nullable();
+            $table->enum('status_penilaian', ['Sudah Dinilai','Belum Dinilai'])->default('Belum Dinilai');
             $table->unsignedBigInteger('jenis_penilai_id');
             $table->foreign('jenis_penilai_id')->references('id')->on('jenis_penilaian')->onDelete('cascade');
             $table->timestamps();

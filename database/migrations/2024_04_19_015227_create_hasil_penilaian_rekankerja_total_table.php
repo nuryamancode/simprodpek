@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hasil_penilaian_rekankerja', function (Blueprint $table) {
+        Schema::create('hasil_penilaian_rekankerja_total', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('penilaian_id');
-            $table->foreign('penilaian_id')->references('id')->on('penilaian_rekankerja')->onDelete('cascade');
+            $table->integer('periode');
             $table->unsignedBigInteger('karyawan_id');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
-            $table->decimal('total_akhir');
+            $table->decimal('total_akhir_semua');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hasil_penilaian_rekankerja');
+        Schema::dropIfExists('hasil_penilaian_rekankerja_total');
     }
 };

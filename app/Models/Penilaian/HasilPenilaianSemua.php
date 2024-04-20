@@ -6,22 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class HasilPenilaianRekanKerja extends Model
+class HasilPenilaianSemua extends Model
 {
     use HasFactory;
-    protected $table = "hasil_penilaian_rekankerja";
+    protected $table = "hasil_penilaian_rekankerja_total";
     protected $fillable = [
-        'total_akhir',
+        'total_akhir_semua',
+        'periode',
         'karyawan_id',
-        'penilaian_id',
     ];
     protected $casts = [
         'created_at'=> 'datetime',
         'updated_at'=> 'datetime',
     ];
 
-    public function penilaianrekankerja() : BelongsTo
-    {
-        return $this->belongsTo(PenilaianRekanKerja::class);
-    }
 }

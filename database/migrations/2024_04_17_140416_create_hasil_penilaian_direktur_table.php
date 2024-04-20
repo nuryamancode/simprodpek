@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('hasil_penilaian_direktur', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tahap_satu_id');
-            $table->foreign('tahap_satu_id')->references('id')->on('penilaian_tahap_satu')->onDelete('cascade');
+            $table->unsignedBigInteger('penilaian_id');
+            $table->foreign('penilaian_id')->references('id')->on('penilaian_karyawan')->onDelete('cascade');
+            $table->unsignedBigInteger('karyawan_id');
+            $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->decimal('total_akhir');
+            $table->integer('periode');
             $table->timestamps();
         });
     }
