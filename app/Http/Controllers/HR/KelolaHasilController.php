@@ -4,14 +4,11 @@ namespace App\Http\Controllers\HR;
 
 use App\Http\Controllers\Controller;
 use App\Models\MHr;
-use App\Models\MKaryawan;
-use App\Models\MPeriode;
 use App\Models\Penilaian\TotalAkhir;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use PDF;
 
-class LaporanKinerjaController extends Controller
+class KelolaHasilController extends Controller
 {
     public function index(Request $request)
     {
@@ -37,6 +34,6 @@ class LaporanKinerjaController extends Controller
             'totalakhir' => $totalakhir,
             'periode_pilih' => $periode_pilih,
         ];
-        return view('hr.hr-laporan-kinerja', $data);
+        return view('hr.hr-kelola-hasil', $data);
     }
 }

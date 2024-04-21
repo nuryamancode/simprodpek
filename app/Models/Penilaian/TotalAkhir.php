@@ -15,7 +15,7 @@ class TotalAkhir extends Model
         'karyawan_id',
         'hasildirektur_id',
         'hasilrekankerja_id',
-        'periode',
+        'periode_id',
         'total_akhir',
     ];
     protected $casts = [
@@ -30,6 +30,10 @@ class TotalAkhir extends Model
     public function hasilrekankerja(): BelongsTo
     {
         return $this->belongsTo(HasilPenilaianSemua::class, 'hasilrekankerja_id');
+    }
+    public function periode(): BelongsTo
+    {
+        return $this->belongsTo(Periode::class, 'periode_id');
     }
     public function karyawan(): BelongsTo
     {

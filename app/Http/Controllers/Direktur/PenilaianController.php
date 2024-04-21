@@ -31,7 +31,7 @@ class PenilaianController extends Controller
         $notifikasi = MNotifikasi::where('user_id', $user_id)->latest()->take(5)->get();
         $jumlahnotif = MNotifikasi::where('user_id', $user_id)->where('dibaca', false)->get();
         $jumlah = $jumlahnotif->count();
-        $penilaian = Penilai::where('status_penilaian', 'Belum Dinilai')->where('jenis_dinilai', 'Direktur To Karyawan')->get();
+        $penilaian = Penilai::where('jenis_dinilai', 'Direktur To Karyawan')->get();
         $karyawan = MKaryawan::all();
 
         $data = [
@@ -48,7 +48,9 @@ class PenilaianController extends Controller
     public function save_penilaiankaryawan(Request $request)
     {
         $karyawan_id = $request->input('karyawan_id');
-        $periode_id = $request->input('periode_id');
+        $penilai = $request->input('periode_id');
+        $periode = Penilai::find($penilai);
+        $periode_id = $periode->periode_id;
         $data = Penilaiankaryawan::create([
             'karyawan_id' => $karyawan_id,
             'periode_id' => $periode_id
@@ -91,7 +93,7 @@ class PenilaianController extends Controller
         $nilai = $request->input('nilai');
         $penilaian_id = $request->input('penilaian_id');
         $penilaianSatu = Penilaiankaryawan::findOrFail($penilaian_id);
-        $periode = $penilaianSatu->periode->periode;
+        $periodeId = $penilaianSatu->periode_id;
         $karyawan = $penilaianSatu->karyawan_id;
 
         $totalkriteria = [];
@@ -127,16 +129,23 @@ class PenilaianController extends Controller
                 $total = $totalNilaiAkhir += $totalkali; // hitung jumlah total nilai semua kriteria
                 $totalakhir = $total * $jenispenilai->nilai_bobot / 100; // total akhir penilaian direktur
             }
-            HasilPenilaianDirektur::create([
-                'penilaian_id' => $penilaian_id,
-                'periode' => $periode,
-                'total_akhir' => $totalakhir,
-                'karyawan_id' => $karyawan,
-            ]);
+            $nilaiTotal = HasilPenilaianDirektur::where('karyawan_id', $karyawan)->where('periode_id',$periodeId)->first();
+            if ($nilaiTotal) {
+                $nilaiTotal->update([
+                    'total_akhir'=> $totalakhir,
+                ]);
+            }else{
+                HasilPenilaianDirektur::create([
+                    'penilaian_id' => $penilaian_id,
+                    'periode_id' => $periodeId,
+                    'total_akhir' => $totalakhir,
+                    'karyawan_id' => $karyawan,
+                ]);
+            }
             $penilaiankaryawan = Penilaiankaryawan::find($penilaian_id);
             $penilaiankaryawan->status_penilaian = 'Sudah Dinilai';
             $penilaiankaryawan->save();
-            $this->Setnilaiakhir($karyawan);
+            $this->Setnilaiakhir($penilaian_id);
             alert()->toast('Berhasil dinilai', 'success');
             return redirect()->route('direktur.kelola.penilaian');
         } else {
@@ -145,14 +154,15 @@ class PenilaianController extends Controller
         }
     }
 
-    private function Setnilaiakhir($karyawan)
+    private function Setnilaiakhir($penilaian_id)
     {
-        $karyawanId = MKaryawan::find($karyawan);
-        $hasilrekan = HasilPenilaianSemua::where('karyawan_id', $karyawanId->id)->first();
-        $hasildirektur = HasilPenilaianDirektur::where('karyawan_id', $karyawanId->id)->first();
-        // dd($hasildirektur);
-        $hasildirekturnull = TotalAkhir::whereNotNull('hasildirektur_id')->where('karyawan_id', $karyawanId->id)->first();
-        $hasilrekannull = TotalAkhir::whereNotNull('hasilrekankerja_id')->where('karyawan_id', $karyawanId->id)->first();
+        $penilaian = Penilaiankaryawan::find($penilaian_id);
+        $karyawanId = $penilaian->karyawan_id;
+        $periodeId = $penilaian->periode_id;
+        $hasilrekan = HasilPenilaianSemua::where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
+        $hasildirektur = HasilPenilaianDirektur::where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
+        $hasildirekturnull = TotalAkhir::whereNotNull('hasildirektur_id')->where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
+        $hasilrekannull = TotalAkhir::whereNotNull('hasilrekankerja_id')->where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
 
         if ($hasilrekannull) {
             // Jika kedua nilai tidak kosong, hitung total akhir dari rekan dan direktur
@@ -160,7 +170,7 @@ class PenilaianController extends Controller
             $totalnilaidirektur = $hasildirektur->total_akhir;
             $hasilTotal = $totalnilairekan + $totalnilaidirektur;
 
-            $totalAkhir = TotalAkhir::where('karyawan_id', $karyawanId->id)->first();
+            $totalAkhir = TotalAkhir::where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
             if ($totalAkhir) {
                 // Jika total akhir sudah ada, lakukan update
                 $totalAkhir->update([
@@ -170,11 +180,43 @@ class PenilaianController extends Controller
             }
         } else {
             TotalAkhir::create([
-                'karyawan_id' => $karyawanId->id,
+                'karyawan_id' => $karyawanId,
                 'hasildirektur_id' => $hasildirektur->id,
-                'periode' => $hasildirektur->periode,
+                'periode_id' => $hasildirektur->periode_id,
                 'total_akhir' => $hasildirektur->total_akhir,
             ]);
         }
+    }
+
+    public function laporan(Request $request)
+    {
+        $user_id = auth()->id();
+        $direktur = MDirektur::where('user_id', $user_id)->first();
+        $notifikasi = MNotifikasi::where('user_id', $user_id)->latest()->take(5)->get();
+        $jumlahnotif = MNotifikasi::where('user_id', $user_id)->where('dibaca', false)->get();
+        $jumlah = $jumlahnotif->count();
+        $role = auth()->user()->role;
+        $periode_pilih = $request->input('filter');
+        if ($periode_pilih) {
+            $totalakhir = TotalAkhir::whereNotNull('hasildirektur_id')
+                ->whereNotNull('hasilrekankerja_id')
+                ->whereHas('periode', function ($query) use ($periode_pilih) {
+                    $query->where('periode', $periode_pilih);
+                })
+                ->get();
+        } else {
+            $totalakhir = TotalAkhir::whereNotNull('hasildirektur_id')
+                ->whereNotNull('hasilrekankerja_id')
+                ->get();
+        }
+        $data = [
+            'direktur' => $direktur,
+            'role' => $role,
+            'notifikasi' => $notifikasi,
+            'jumlah' => $jumlah,
+            'totalakhir' => $totalakhir,
+            'periode_pilih' => $periode_pilih,
+        ];
+        return view('direkturs.direktur-laporan-hasil', $data);
     }
 }

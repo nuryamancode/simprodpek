@@ -12,12 +12,16 @@ class HasilPenilaianSemua extends Model
     protected $table = "hasil_penilaian_rekankerja_total";
     protected $fillable = [
         'total_akhir_semua',
-        'periode',
+        'periode_id',
         'karyawan_id',
     ];
     protected $casts = [
         'created_at'=> 'datetime',
         'updated_at'=> 'datetime',
     ];
+    public function periode(): BelongsTo
+    {
+        return $this->belongsTo(Periode::class, 'periode_id');
+    }
 
 }

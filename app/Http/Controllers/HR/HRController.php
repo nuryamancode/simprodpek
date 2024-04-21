@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\HR;
 
 use App\Http\Controllers\Controller;
+use App\Models\MBidang;
 use App\Models\MHr;
+use App\Models\MKaryawan;
+use App\Models\Penilaian\TotalAkhir;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +19,22 @@ class HRController extends Controller
         $user_id = auth()->id();
         $hr = MHr::where('user_id', $user_id)->first();
         $role = Auth::user()->role;
+        $totalakhir_per_periode = TotalAkhir::whereNotNull('hasildirektur_id')
+            ->whereNotNull('hasilrekankerja_id')
+            ->with('periode')
+            ->get()
+            ->groupBy('periode.periode');
+        $jumlahkaryawan = MKaryawan::count();
+        $jumlahbidang = MBidang::count();
+        $jumlahuser = User::count();
         $data = [
 
             'role' => $role,
+            'totalakhir_per_periode' => $totalakhir_per_periode,
             'hr' => $hr,
+            'jumlahkaryawan' => $jumlahkaryawan,
+            'jumlahbidang' => $jumlahbidang,
+            'jumlahuser' => $jumlahuser,
         ];
         return view('hr.hr-dashboard', $data);
     }

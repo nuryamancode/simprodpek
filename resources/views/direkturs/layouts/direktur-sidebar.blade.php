@@ -124,12 +124,12 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link {{ 'manageuser' == request()->path() ? 'active' : '' }}"
-                    href="{{ route('maintenance') }}" aria-expanded="false">
+                <a class="sidebar-link {{ 'direktur/laporan-hasil' == request()->path() ? 'active' : '' }}"
+                    href="{{ route('direktur.laporan.hasil') }}" aria-expanded="false">
                     <span>
                         <i class="bi bi-file-earmark-person-fill"></i>
                     </span>
-                    <span class="hide-menu">Laporan Hasil Penilaian</span>
+                    <span class="hide-menu">Laporan Kinerja Karyawan</span>
                 </a>
             </li>
         </ul>

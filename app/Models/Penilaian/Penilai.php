@@ -11,7 +11,7 @@ class Penilai extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'periode',
+        'periode_id',
         'jenis_penilai_id',
         'jenis_dinilai',
         'status_penilaian',
@@ -26,9 +26,9 @@ class Penilai extends Model
     {
         return $this->belongsTo(JenisPenilaian::class, 'jenis_penilai_id');
     }
-
-    public function penilaiansatu(): HasOne
+    public function periode(): BelongsTo
     {
-        return $this->hasOne(PenilaianSatu::class, 'penilai_id');
+        return $this->belongsTo(Periode::class, 'periode_id');
     }
+
 }

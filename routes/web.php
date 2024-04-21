@@ -16,6 +16,7 @@ use App\Http\Controllers\HR\BidangController;
 use App\Http\Controllers\HR\DataKaryawanController;
 use App\Http\Controllers\HR\HRController;
 use App\Http\Controllers\HR\JenisPenilaianController;
+use App\Http\Controllers\HR\KelolaHasilController;
 use App\Http\Controllers\HR\KelolaPenilaianController;
 use App\Http\Controllers\HR\KelolaPenilaiController;
 use App\Http\Controllers\HR\KriteriaController;
@@ -42,8 +43,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/maintenance', function(){return view('components.maintenance');})->name('maintenance');
 Route::get('/home', [AuthController::class, 'home_redirect']);
 Route::middleware('guest')->group(function () {
-    Route::get('/', [AuthController::class, 'home'])->name('home');
-    Route::get('/login', [AuthController::class, 'index'])->name('login');
+    Route::get('/', [AuthController::class, 'index'])->name('login');
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/proses-register', [AuthController::class, 'proses_register'])->name('proses.register');
@@ -92,12 +92,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/penilaian/{penilaiansatu_id}', [PenilaianRekanKerjaController::class, 'penilaian'])->name('.penilaian');
         Route::post('/penilaian-save', [PenilaianRekanKerjaController::class, 'hasil_penilaian'])->name('.hasil.penilaian');
 
-
-
-        // hasil kinerja karyawan
-        // Route::get('/hasil-kinerja', [HasilKinerjaController::class, 'index'])->name('.hasil.kinerja');
-        // Route::get('/hasil-kinerja-detail/{id}', [HasilKinerjaController::class, 'detail'])->name('.detail.hasil.kinerja');
-
+        // laporan nilai kinerja
+        Route::get('/laporan-nilai', [PenilaianRekanKerjaController::class, 'laporan'])->name('.laporan.nilai');
     });
 
 
@@ -137,6 +133,9 @@ Route::middleware('auth')->group(function () {
         // laporan proyek selesai
         Route::get('/laporan-proyek', [ProyekController::class, 'laporan'])->name('.laporan.proyek');
 
+        // laporan kinerja karyawan
+        Route::get('/laporan-hasil', [PenilaianController::class, 'laporan'])->name('.laporan.hasil');
+
         // kalender
         Route::get('/kalender-proyek', [KalenderController::class, '__invoke'])->name('.kalender.proyek');
         Route::get('/kalender-proyek/delete/{kalender}', [KalenderController::class, 'delete'])->name('.delete.kalender.proyek');
@@ -152,6 +151,7 @@ Route::middleware('auth')->group(function () {
         // tim
         Route::get('/tim', [TimController::class, 'index'])->name('.tim');
         Route::post('/tim-save', [TimController::class, 'save'])->name('.save.tim');
+        Route::get('/tim-delete/{id}', [TimController::class, 'delete'])->name('.delete.tim');
 
         // penilaian
         Route::get('/penilaian/{penilaian_id}', [PenilaianController::class, 'penilaian'])->name('.penilaian');
@@ -222,18 +222,19 @@ Route::middleware('auth')->group(function () {
         Route::post('/kelola-penilai-save', [KelolaPenilaiController::class, 'save'])->name('.save.kelola.penilai');
         Route::put('/kelola-penilai-update/{id}', [KelolaPenilaiController::class, 'update'])->name('.update.kelola.penilai');
 
+        // periode
+        Route::get('/periode-delete/{id}', [KelolaPenilaiController::class, 'delete_periode'])->name('.delete.periode');
+        Route::post('/periode-save', [KelolaPenilaiController::class, 'save_periode'])->name('.save.periode');
+        Route::put('/periode-update/{id}', [KelolaPenilaiController::class, 'update_periode'])->name('.update.periode');
+
         // manajemen user
         Route::get('/manajemen-user', [ManajemenUserController::class, 'index'])->name('.manajemen.user');
         Route::get('/manajemen-user-delete/{user}', [ManajemenUserController::class, 'delete'])->name('.delete.manajemen.user');
         Route::post('/manajemen-user-save', [ManajemenUserController::class, 'save'])->name('.save.manajemen.user');
         Route::put('/manajemen-user-update/{id}', [ManajemenUserController::class, 'update'])->name('.update.manajemen.user');
 
-        // penilaian
-        Route::get('/kelola-penilaian', [KelolaPenilaianController::class, 'index'])->name('.kelola.penilaian');
-        Route::get('/kelola-penilaian-delete/{periode}', [KelolaPenilaianController::class, 'delete'])->name('.delete.kelola.penilaian');
-        Route::get('/kelola-penilaian-detail/{id}', [KelolaPenilaianController::class, 'detail'])->name('.detail.kelola.penilaian');
-        Route::post('/kelola-penilaian-save', [KelolaPenilaianController::class, 'save'])->name('.save.kelola.penilaian');
-        Route::put('/kelola-penilaian-update/{id}', [KelolaPenilaianController::class, 'update'])->name('.update.kelola.penilaian');
+        // kelola hasil penilaian
+        Route::get('/hasil-penilaian', [KelolaHasilController::class, 'index'])->name('.hasil.penilaian');
 
         // laporan kinerja
         Route::get('/laporan-kinerja', [LaporanKinerjaController::class, 'index'])->name('.laporan.kinerja');

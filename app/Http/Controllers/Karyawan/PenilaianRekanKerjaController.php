@@ -29,7 +29,7 @@ class PenilaianRekanKerjaController extends Controller
         $notifikasi = MNotifikasi::where('user_id', $user_id)->latest()->take(5)->get();
         $jumlahnotif = MNotifikasi::where('user_id', $user_id)->where('dibaca', false)->get();
         $jumlah = $jumlahnotif->count();
-        $penilai = Penilai::where('status_penilaian', 'Belum Dinilai')->where('jenis_dinilai', 'Karyawan To Rekan Kerja')->get();
+        $penilai = Penilai::where('jenis_dinilai', 'Karyawan To Rekan Kerja')->get();
         $tim = [];
         if ($karyawan) {
             $karyawan_id = $karyawan->id;
@@ -54,7 +54,9 @@ class PenilaianRekanKerjaController extends Controller
         $user_id = auth()->id();
         $karyawan = MKaryawan::where('user_id', $user_id)->first();
         $karyawan_id = $request->input('karyawan_id');
-        $periode_id = $request->input('periode_id');
+        $penilai = $request->input('periode_id');
+        $periode = Penilai::find($penilai);
+        $periode_id = $periode->periode_id;
         $data = PenilaianRekanKerja::create([
             'karyawan_id' => $karyawan_id,
             'karyawan_menilai_id' => $karyawan->id,
@@ -154,7 +156,6 @@ class PenilaianRekanKerjaController extends Controller
         $penilaianSatu = PenilaianRekanKerja::findOrFail($penilaian_id);
         $periodeId = $penilaianSatu->periode_id;
         $karyawan = $penilaianSatu->karyawan_id;
-        $periode = $penilaianSatu->periode->periode;
 
         // Hitung jumlah karyawan yang belum memberikan penilaian dalam periode yang sama
         $jumlahKaryawanBelumDinilai = PenilaianRekanKerja::where('status_penilaian', 'Belum Dinilai')
@@ -172,35 +173,37 @@ class PenilaianRekanKerjaController extends Controller
             $totalsemua = $totalNilaiAkhir / $jumlahkaryawan;
             $totaldiambil = $totalsemua * $jenispenilai->nilai_bobot / 100;
             // Simpan atau perbarui total nilai akhir semua karyawan dalam periode yang sama
-            $totalNilaiAkhirSemua = HasilPenilaianSemua::where('karyawan_id', $karyawan)->first();
+            $totalNilaiAkhirSemua = HasilPenilaianSemua::where('karyawan_id', $karyawan)->where('periode_id', $periodeId)->first();
             if ($totalNilaiAkhirSemua) {
                 $totalNilaiAkhirSemua->update(['total_akhir_semua' => $totaldiambil]);
-                $this->Setnilaiakhir($karyawan);
+                $this->Setnilaiakhir($penilaian_id);
             } else {
                 $data = HasilPenilaianSemua::create([
-                    'periode' => $periode,
+                    'periode_id' => $periodeId,
                     'karyawan_id' => $karyawan,
                     'total_akhir_semua' => $totaldiambil,
                 ]);
                 // $hasilrekankerja = $data->id;
                 $data->save();
-                $this->Setnilaiakhir($karyawan);
+                $this->Setnilaiakhir($penilaian_id);
             }
         }
     }
 
-    private function Setnilaiakhir($karyawan)
+    private function Setnilaiakhir($penilaian_id)
     {
-        $karyawanId = MKaryawan::find($karyawan);
-        $hasilrekan = HasilPenilaianSemua::where('karyawan_id', $karyawanId->id)->first();
-        $hasildirektur = HasilPenilaianDirektur::where('karyawan_id', $karyawanId->id)->first();
-        $hasildirekturnull = TotalAkhir::whereNotNull('hasildirektur_id')->where('karyawan_id', $karyawanId->id)->first();
-        $hasilrekannull = TotalAkhir::whereNotNull('hasilrekankerja_id')->where('karyawan_id', $karyawanId->id)->first();
+        $penilaian = PenilaianRekanKerja::find($penilaian_id);
+        $karyawanId = $penilaian->karyawan_id;
+        $periodeId = $penilaian->periode_id;
+        $hasilrekan = HasilPenilaianSemua::where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
+        $hasildirektur = HasilPenilaianDirektur::where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
+        $hasildirekturnull = TotalAkhir::whereNotNull('hasildirektur_id')->where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
+        $hasilrekannull = TotalAkhir::whereNotNull('hasilrekankerja_id')->where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
 
         if ($hasildirekturnull || $hasilrekannull) {
             // Jika kedua nilai tidak kosong, hitung total akhir dari rekan dan direktur
 
-            $totalAkhir = TotalAkhir::where('karyawan_id', $karyawanId->id)->first();
+            $totalAkhir = TotalAkhir::where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
             if ($totalAkhir->hasildirektur_id == null) {
                 $totalAkhir->update([
                     'total_akhir' => $hasilrekan->total_akhir_semua,
@@ -217,12 +220,33 @@ class PenilaianRekanKerjaController extends Controller
         } else {
             // Jika kedua nilai kosong, langsung masukkan hasil rekan dan total akhir ke tabel total akhir
             TotalAkhir::create([
-                'karyawan_id' => $karyawanId->id,
+                'karyawan_id' => $karyawanId,
                 'hasilrekankerja_id' => $hasilrekan->id,
-                'periode' => $hasilrekan->periode,
+                'periode_id' => $hasilrekan->periode_id,
                 'total_akhir' => $hasilrekan->total_akhir_semua,
             ]);
         }
         // Tidak perlu tindakan jika hanya salah satu nilai yang kosong, karena tidak ada informasi yang cukup
+    }
+
+    public function laporan()
+    {
+        $user_id = auth()->id();
+        $karyawan = MKaryawan::where('user_id', $user_id)->first();
+        $role = Auth::user()->role;
+        $notifikasi = MNotifikasi::where('user_id', $user_id)->latest()->take(5)->get();
+        $jumlahnotif = MNotifikasi::where('user_id', $user_id)->where('dibaca', false)->get();
+        $jumlah = $jumlahnotif->count();
+        $totalakhir = TotalAkhir::whereNotNull('hasildirektur_id')
+            ->whereNotNull('hasilrekankerja_id')->where('karyawan_id', $karyawan->id)
+            ->get();
+        $data = [
+            'role' => $role,
+            'karyawan' => $karyawan,
+            'totalakhir' => $totalakhir,
+            'notifikasi' => $notifikasi,
+            'jumlah' => $jumlah
+        ];
+        return view('karyawans.karyawan-laporan-nilai', $data);
     }
 }

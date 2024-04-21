@@ -50,12 +50,8 @@
                                 </td>
                                 <td class="text-center">
                                     <a href="#" class="btn btn-danger" data-confirm-delete="true"
-                                        onclick="konfirmasiHapus('')">
+                                        onclick="konfirmasiHapus('{{ route('direktur.delete.tim' , $items->id) }}')">
                                         <i class="bi bi-trash-fill"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-success" data-bs-target="#modalEdit"
-                                        data-bs-toggle="modal">
-                                        <i class="bi bi-pen-fill"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -73,7 +69,7 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="modalTambahLabel">
                         <i class="bi bi-person-fill-add"></i>
-                        Tambah Data
+                        Tambah Tim & Anggota
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -111,56 +107,6 @@
         </div>
     </div>
 
-
-
-    {{-- @foreach ($tim as $item)
-        <div class="modal fade" id="modalEdit{{ $item->id_klien }}" tabindex="-1" aria-labelledby="modalEditLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalEditLabel">
-                            <i class="bi bi-pen-fill"></i>
-                            Edit Data
-                        </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('direktur.update.klien', $item->id_klien) }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control" id="recipient-name" name="name"
-                                    value="{{ $item->nama_klien }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Email</label>
-                                <input type="email" class="form-control" id="recipient-name" name="email"
-                                    value="{{ $item->email }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Alamat Lengkap</label>
-                                <textarea class="form-control" placeholder="Masukkan alamat disini..." id="floatingTextarea" name="alamat">{{ $item->alamat }}</textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">No Handphone</label>
-                                <input type="text" class="form-control" id="recipient-name" name="nomor_handphone"
-                                    value="{{ $item->nomor_handphone }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Berkas Klien</label>
-                                <input type="file" class="form-control" id="recipient-name" name="berkas_klien">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Tambah</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach --}}
 
 @endsection
 

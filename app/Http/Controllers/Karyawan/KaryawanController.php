@@ -5,45 +5,48 @@ namespace App\Http\Controllers\Karyawan;
 use App\Http\Controllers\Controller;
 use App\Models\MKaryawan;
 use App\Models\MNotifikasi;
+use App\Models\MTugas;
+use App\Models\Penilaian\TotalAkhir;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class KaryawanController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $user_id = auth()->id();
         $karyawan = MKaryawan::where('user_id', $user_id)->first();
         $role = Auth::user()->role;
         $notifikasi = MNotifikasi::where('user_id', $user_id)->latest()->take(5)->get();
         $jumlahnotif = MNotifikasi::where('user_id', $user_id)->where('dibaca', false)->get();
         $jumlah = $jumlahnotif->count();
+        $totalakhir_per_periode = TotalAkhir::whereNotNull('hasildirektur_id')
+            ->whereNotNull('hasilrekankerja_id')
+            ->where('karyawan_id', $karyawan->id)
+            ->with(['periode', 'karyawan.bidang'])
+            ->get()
+            ->groupBy('periode.periode');
+        $jumlahtugas = MTugas::where('m_karyawan_id', $karyawan->id)->count();
+        $tugasselesai = MTugas::where('m_karyawan_id', $karyawan->id_karyawan)->whereIn('proyek_id', function ($query) {
+            $query->select('id')->from('proyek')->where('status_tugas', 'Selesai');
+        })
+            ->get();
+        $jumlahtugasselesai = $tugasselesai->count();
         $data = [
 
             'role' => $role,
             'karyawan' => $karyawan,
-            'notifikasi'=> $notifikasi,
-            'jumlah'=> $jumlah
+            'notifikasi' => $notifikasi,
+            'totalakhir_per_periode' => $totalakhir_per_periode,
+            'jumlahtugas' => $jumlahtugas,
+            'jumlahtugasselesai' => $jumlahtugasselesai,
+            'jumlah' => $jumlah
         ];
 
         return view('karyawans.karyawan-dashboard', $data);
     }
-    public function profil() {
-        $user_id = auth()->id();
-        $karyawan = MKaryawan::where('user_id',$user_id)->first();
-        $role = Auth::user()->role;
-        $notifikasi = MNotifikasi::where('user_id', $user_id)->latest()->take(5)->get();
-        $jumlahnotif = MNotifikasi::where('user_id', $user_id)->where('dibaca', false)->get();
-        $jumlah = $jumlahnotif->count();
-        $data = [
-
-            'role' => $role,
-            'karyawan' => $karyawan,
-            'notifikasi'=> $notifikasi,
-            'jumlah'=> $jumlah
-        ];
-        return view('karyawans.karyawan-profil', $data);
-    }
-    public function edit() {
+    public function profil()
+    {
         $user_id = auth()->id();
         $karyawan = MKaryawan::where('user_id', $user_id)->first();
         $role = Auth::user()->role;
@@ -54,8 +57,25 @@ class KaryawanController extends Controller
 
             'role' => $role,
             'karyawan' => $karyawan,
-            'notifikasi'=> $notifikasi,
-            'jumlah'=> $jumlah
+            'notifikasi' => $notifikasi,
+            'jumlah' => $jumlah
+        ];
+        return view('karyawans.karyawan-profil', $data);
+    }
+    public function edit()
+    {
+        $user_id = auth()->id();
+        $karyawan = MKaryawan::where('user_id', $user_id)->first();
+        $role = Auth::user()->role;
+        $notifikasi = MNotifikasi::where('user_id', $user_id)->latest()->take(5)->get();
+        $jumlahnotif = MNotifikasi::where('user_id', $user_id)->where('dibaca', false)->get();
+        $jumlah = $jumlahnotif->count();
+        $data = [
+
+            'role' => $role,
+            'karyawan' => $karyawan,
+            'notifikasi' => $notifikasi,
+            'jumlah' => $jumlah
         ];
         return view('karyawans.karyawan-edit-profil', $data);
     }
@@ -67,8 +87,8 @@ class KaryawanController extends Controller
         $request->validate([
             'nama_lengkap' => 'required|string',
             'foto_profil' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'alamat'=> 'required',
-            'no_handphone'=> 'required'
+            'alamat' => 'required',
+            'no_handphone' => 'required'
         ], [
             'nama_lengkap.required' => 'Nama Lengkap wajib diisi',
             'alamat.required' => 'Alamat wajib diisi',
@@ -99,7 +119,8 @@ class KaryawanController extends Controller
         }
     }
 
-    public function notifikasi(){
+    public function notifikasi()
+    {
         $user_id = auth()->id();
         $karyawan = MKaryawan::where('user_id', $user_id)->first();
         $role = Auth::user()->role;
@@ -111,9 +132,9 @@ class KaryawanController extends Controller
 
             'role' => $role,
             'karyawan' => $karyawan,
-            'notifikasi'=> $notifikasi,
-            'notifikasi1'=> $notifikasi1,
-            'jumlah'=> $jumlah
+            'notifikasi' => $notifikasi,
+            'notifikasi1' => $notifikasi1,
+            'jumlah' => $jumlah
         ];
         return view('karyawans.karyawan-notifikasi', $data);
     }

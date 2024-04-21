@@ -15,11 +15,6 @@ class AuthController extends Controller
     {
         return view('auths.login');
     }
-    function home()
-    {
-        return view('auths.home');
-    }
-
     function register()
     {
         return view('auths.register');
@@ -50,7 +45,7 @@ class AuthController extends Controller
                     default:
                         Auth::logout();
                         alert()->toast('Email harus terverifikasi', 'error');
-                        return redirect('/login');
+                        return redirect('/');
                 }
             } else {
                 if ($user->role == 'Karyawan') {
@@ -58,7 +53,7 @@ class AuthController extends Controller
                 } else {
                     Auth::logout();
                     alert()->toast('Email harus terverifikasi', 'error');
-                    return redirect('/login');
+                    return redirect('/');
                 }
             }
         } else {
@@ -106,7 +101,7 @@ class AuthController extends Controller
                     event(new Registered($user));
                     alert()->toast('Registrasi Berhasil Silahkan Verifikasi Email', 'success');
                     if (Auth::login($user)) {
-                        return redirect('/login')->with('success', 'Email sudah terverifikasi');
+                        return redirect('/')->with('success', 'Email sudah terverifikasi');
                     }
 
                     return redirect('/email/verify');

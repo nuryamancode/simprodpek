@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('hasil_penilaian_rekankerja_total', function (Blueprint $table) {
             $table->id();
-            $table->integer('periode');
+            $table->unsignedBigInteger('periode_id');
+            $table->foreign('periode_id')->references('id')->on('periode')->onDelete('cascade');
             $table->unsignedBigInteger('karyawan_id');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->decimal('total_akhir_semua');

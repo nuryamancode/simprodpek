@@ -53,15 +53,14 @@
                         <li class="p-3"><a href="{{ route('hr.kriteria') }}" style="padding-left: 30px;" class="text-white">Kriteria</a></li>
                         <li class="p-3"><a href="{{ route('hr.sub.kriteria') }}" style="padding-left: 30px;" class="text-white">Sub Kriteria</a></li>
                         <li class="p-3"><a href="{{ route('hr.kelola.penilai') }}" style="padding-left: 30px;" class="text-white">Kelola Penilai</a></li>
-                        <li class="p-3"><a href="{{ route('hr.sub.kriteria') }}" style="padding-left: 30px;" class="text-white">Kelola Hasil Penilaian</a></li>
-                        <li class="p-3"><a href="{{ route('hr.sub.kriteria') }}" style="padding-left: 30px;" class="text-white">Laporan Hasil Penilaian</a></li>
+                        <li class="p-3"><a href="{{ route('hr.hasil.penilaian') }}" style="padding-left: 30px;" class="text-white">Kelola Hasil Penilaian</a></li>
                     </ul>
                 </li>
                 <li class="nav-small-cap">
                     <span class="hide-menu text-white">Report</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link {{ Str::startsWith(request()->path(), 'hr/laporan-kinerja') ? 'active' : '' }}"
+                    <a class="sidebar-link sidebar-link {{ Str::startsWith(request()->path(), 'hr/laporan-kinerja/') ? 'active' : '' }}"
                         href="{{ route('hr.laporan.kinerja') }}">
                         <i data-feather="clipboard" class="feather-icon text-white"></i>
                         <span class="hide-menu text-white">Laporan Hasil Kinerja</span>

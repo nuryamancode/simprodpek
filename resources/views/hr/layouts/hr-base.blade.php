@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('humanresources/css/style.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.css">
     <style>
         table.dataTable thead tr>.dtfc-fixed-right {
             background-color: #1C2D41;
@@ -82,7 +83,7 @@
     </div>
     @include('vendor.sweetalert.alert')
     <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
-    <script src="{{ asset('humanresources/vendor/jquery/dist/jquery.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="{{ asset('humanresources/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('humanresources/js/feather.min.js') }}"></script>
     <script src="{{ asset('humanresources/vendor/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>

@@ -40,7 +40,4 @@ class MTugas extends Model
     {
         return $this->belongsTo(MProyek::class);
     }
-    public function penilaian(){
-        return $this->hasOne(MPenilaian::class);
-    }
 }

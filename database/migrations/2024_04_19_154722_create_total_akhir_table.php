@@ -19,7 +19,8 @@ return new class extends Migration
             $table->foreign('hasildirektur_id')->references('id')->on('hasil_penilaian_direktur');
             $table->unsignedBigInteger('hasilrekankerja_id')->nullable();
             $table->foreign('hasilrekankerja_id')->references('id')->on('hasil_penilaian_rekankerja_total');
-            $table->integer('periode');
+            $table->unsignedBigInteger('periode_id');
+            $table->foreign('periode_id')->references('id')->on('periode')->onDelete('cascade');
             $table->decimal('total_akhir');
             $table->timestamps();
         });

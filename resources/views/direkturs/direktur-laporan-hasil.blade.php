@@ -1,39 +1,66 @@
-@extends('direkturs.layouts.direktur-base', ['title' => 'Laporan Proyek Selesai'])
+@extends('direkturs.layouts.direktur-base', ['title' => 'Laporan Kinerja Karyawan'])
 
 @section('content-direktur')
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h2 class="title-name">Laporan Proyek Selesai</h2>
+                <h2 class="title-name">Laporan Kinerja Karyawan</h2>
             </div>
             <div class="card-body">
-                @if (session('success'))
-                    <div class="alert alert-success mt-2 text-start" style="margin-left: 45px; margin-right: 45px">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                <table id="proyekselesai" class="table table-responsive table-striped table-bordered mt-3" style="width:100%">
+                <div class="mb-5 mt-5">
+                    <form action="{{ route('direktur.laporan.hasil') }}" method="GET">
+                        <div class="mb-3">
+                            <label for="filter" class="form-label">Filter Periode</label>
+                            <div class="input-group">
+                                <select name="filter" id="filter" onchange="this.form.submit()" class="form-select">
+                                    @if ($totalakhir !== null && !$totalakhir->isEmpty())
+                                        @foreach ($totalakhir->unique('periode_id') as $item)
+                                            <option value="{{ $item->periode->periode }}"
+                                                @if ($periode_pilih == $item->periode->periode) selected @endif>
+                                                {{ $item->periode->periode }}</option>
+                                        @endforeach
+                                    @else
+                                        <option value="" disabled selected>Periode belum ada</option>
+                                    @endif
+                                </select>
+                                <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <table id="laporanhasil" class="table table-responsive table-striped table-bordered mt-3"
+                    style="width:100%">
                     <thead>
                         <tr class="text-center text-nowrap align-middle table-dark">
                             <th class="text-center">No</th>
-                            <th class="text-center">Nama Proyek</th>
-                            <th class="text-center">Tanggal Mulai</th>
-                            <th class="text-center">Tanggal Selesai</th>
-                            <th class="text-center">Nama Klien</th>
-                            <th class="text-center">Email Klien</th>
+                            <th class="text-center">Periode</th>
+                            <th class="text-center">Nama Karyawan</th>
+                            <th class="text-center">Nama Bidang</th>
+                            <th class="text-center">Nilai</th>
+                            <th class="text-center">Predikat</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($proyek as $item)
+                        @foreach ($totalakhir as $item)
                             <tr class="text-nowrap align-middle">
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->nama_proyek }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai)->locale('id_ID')->isoFormat('D MMMM Y') }}
+                                <td>{{ $item->periode->periode }}</td>
+                                <td>{{ $item->karyawan->nama_lengkap }}</td>
+                                <td>{{ $item->karyawan->bidang->nama_bidang }}</td>
+                                <td>{{ $item->total_akhir }}</td>
+                                <td>
+                                    @if ($item->total_akhir >= 4.01 && $item->total_akhir <= 5.0)
+                                        <span class="fw-bold">A</span>
+                                    @elseif($item->total_akhir >= 3.01 && $item->total_akhir <= 4.0)
+                                        <span class="fw-bold">B</span>
+                                    @elseif($item->total_akhir >= 2.01 && $item->total_akhir <= 3.0)
+                                        <span class="fw-bold">C</span>
+                                    @elseif($item->total_akhir >= 1.01 && $item->total_akhir <= 2.0)
+                                        <span class="fw-bold">D</span>
+                                    @elseif($item->total_akhir >= 0.0 && $item->total_akhir <= 1.0)
+                                        <span class="fw-bold">E</span>
+                                    @endif
                                 </td>
-                                <td>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->locale('id_ID')->isoFormat('D MMMM Y') }}
-                                </td>
-                                <td>{{ $item->klien->nama_klien }}</td>
-                                <td>{{ $item->klien->email }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -46,7 +73,7 @@
 @section('direktur-js')
     <script>
         $(document).ready(function() {
-            var table = $('#proyekselesai').DataTable({
+            var table = $('#laporanhasil').DataTable({
                 buttons: [
                     'excel',
 
@@ -107,8 +134,6 @@
                 "border": true,
             });
         });
-
-
 
 
         function konfirmasiHapus(deleteUrl) {

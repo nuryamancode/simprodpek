@@ -64,7 +64,7 @@
                         @foreach ($penilaian as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td class="text-center">{{ $item->periode }}</td>
+                                <td class="text-center">{{ $item->periode->periode }}</td>
                                 <td class="table-striped-columns">
                                     @foreach ($karyawan as $item2)
                                         <ul>
@@ -88,7 +88,7 @@
                                                         'karyawan_id',
                                                         $item4->id,
                                                     )
-                                                        ->where('periode_id', $item->id)
+                                                        ->where('periode_id', $item->periode_id)
                                                         ->first();
                                                 @endphp
                                                 @if (!$tahapsatu || $tahapsatu->status_penilaian == 'Belum dinilai')
@@ -109,7 +109,7 @@
                                                         'karyawan_id',
                                                         $item5->id,
                                                     )
-                                                        ->where('periode_id', $item->id)
+                                                        ->where('periode_id', $item->periode_id)
                                                         ->first();
                                                 @endphp
                                                 @if (!$tahapsatu || $tahapsatu->status_penilaian == 'Belum dinilai')

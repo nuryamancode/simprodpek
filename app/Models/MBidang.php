@@ -16,6 +16,6 @@ class MBidang extends Model
 
     public function karyawan(): HasOne
     {
-        return $this->hasOne(MKaryawan::class);
+        return $this->hasOne(MKaryawan::class, 'bidang_id');
     }
 }

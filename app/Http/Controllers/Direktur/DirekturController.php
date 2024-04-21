@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Direktur;
 
 use App\Http\Controllers\Controller;
 use App\Models\MDirektur;
+use App\Models\MKlien;
 use App\Models\MNotifikasi;
+use App\Models\MProyek;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,12 +20,20 @@ class DirekturController extends Controller
         $notifikasi = MNotifikasi::where('user_id', $user_id)->latest()->take(5)->get();
         $jumlahnotif = MNotifikasi::where('user_id', $user_id)->where('dibaca', false)->get();
         $jumlah = $jumlahnotif->count();
+        $jumlahklien = MKlien::count();
+        $jumlahproyek = MProyek::count();
+        $jumlahproyekselesai = MProyek::where('status_proyek', 'Selesai')->count();
+        $jumlahproyekproses = MProyek::where('status_proyek', 'Proses')->count();
         $data = [
 
             'role' => $role,
             'direktur' => $direktur,
             'notifikasi' => $notifikasi,
-            'jumlah' => $jumlah
+            'jumlah' => $jumlah,
+            'jumlahklien' => $jumlahklien,
+            'jumlahproyek' => $jumlahproyek,
+            'jumlahproyekselesai' => $jumlahproyekselesai,
+            'jumlahproyekproses' => $jumlahproyekproses,
         ];
         return view('direkturs.direktur-dashboard', $data);
     }

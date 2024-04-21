@@ -12,7 +12,7 @@ class HasilPenilaianDirektur extends Model
     protected $table = "hasil_penilaian_direktur";
     protected $fillable = [
         'total_akhir',
-        'periode',
+        'periode_id',
         'karyawan_id',
         'penilaian_id',
     ];
@@ -21,6 +21,10 @@ class HasilPenilaianDirektur extends Model
         'updated_at' => 'datetime',
     ];
 
+    public function periode(): BelongsTo
+    {
+        return $this->belongsTo(Periode::class, 'periode_id');
+    }
     public function penilaiankaryawan(): BelongsTo
     {
         return $this->belongsTo(Penilaiankaryawan::class, 'periode_id');

@@ -1,5 +1,6 @@
 <?php
 
+use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Facade;
 
 return [

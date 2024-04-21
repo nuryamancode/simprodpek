@@ -28,6 +28,6 @@ class PenilaianRekanKerja extends Model
     }
     public function periode(): BelongsTo
     {
-        return $this->belongsTo(Penilai::class, 'periode_id');
+        return $this->belongsTo(Periode::class, 'periode_id');
     }
 }

@@ -90,12 +90,12 @@
                 <span class="hide-menu">Laporan</span>
             </li>
             <li class="sidebar-item">
-                <a class="sidebar-link {{ 'karyawann/hasil-kinerja' == request()->path() ? 'active' : '' }} {{ 'karyawann/hasil-kinerja-detail' == request()->path() ? 'active' : '' }}"
-                    href="" aria-expanded="false">
+                <a class="sidebar-link {{ 'karyawann/laporan-nilai' == request()->path() ? 'active' : '' }}"
+                    href="{{ route('karyawan.laporan.nilai') }}" aria-expanded="false">
                     <span>
                         <i class="bi bi-file-earmark-person-fill"></i>
                     </span>
-                    <span class="hide-menu">Lapora Hasil Penilaian</span>
+                    <span class="hide-menu">Lapora Nilai Kinerja</span>
                 </a>
             </li>
         </ul>

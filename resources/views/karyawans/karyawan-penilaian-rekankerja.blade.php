@@ -30,7 +30,7 @@
                             @foreach ($penilai as $item)
                                 <tr class="text-center text-nowrap">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->periode }}</td>
+                                    <td>{{ $item->periode->periode }}</td>
                                     <td>
                                         @php
                                             $uniqueNames = collect([]);
@@ -89,7 +89,7 @@
                                                         'karyawan_id',
                                                         $item4->id,
                                                     )
-                                                        ->where('periode_id', $item->id)
+                                                        ->where('periode_id', $item->periode_id)
                                                         ->where('karyawan_menilai_id', $karyawan->id) // Penilai yang sedang login
                                                         ->first();
 
@@ -98,7 +98,7 @@
                                                         'karyawan_id',
                                                         $item4->id,
                                                     )
-                                                        ->where('periode_id', '!=', $item->id)
+                                                        ->where('periode_id', '!=', $item->periode_id)
                                                         ->where('karyawan_menilai_id', $karyawan->id) // Mengabaikan penilaian oleh penilai yang sedang login
                                                         ->exists();
 
@@ -137,7 +137,7 @@
                                                         'karyawan_id',
                                                         $item5->id,
                                                     )
-                                                        ->where('periode_id', $item->id) // Penilai yang sedang login
+                                                        ->where('periode_id', $item->periode_id) // Penilai yang sedang login
                                                         ->where('karyawan_menilai_id', $karyawan->id) // Penilai yang sedang login
                                                         ->first();
 
@@ -146,7 +146,7 @@
                                                         'karyawan_id',
                                                         $item5->id,
                                                     )
-                                                        ->where('periode_id', '!=', $item->id)
+                                                        ->where('periode_id', '!=', $item->periode_id)
                                                         ->where('karyawan_menilai_id', $karyawan->id)  // Mengabaikan penilaian oleh penilai yang sedang login
                                                         ->exists();
 
@@ -159,13 +159,13 @@
                                                 @endphp
                                                 <li>
                                                     @if ($statusPenilaian == 'Belum Dinilai')
-                                                        <form action="{{ route('karyawan.penilaian.satu', $item->id) }}"
+                                                        <form action="{{ route('karyawan.penilaian.satu', $item->periode_id) }}"
                                                             method="POST">
                                                             @csrf
                                                             <input type="hidden" name="karyawan_id"
                                                                 value="{{ $item5->id }}">
                                                             <input type="hidden" name="periode_id"
-                                                                value="{{ $item->id }}">
+                                                                value="{{ $item->periode_id }}">
                                                             <button type="submit" class="btn btn-dark fs-4">
                                                                 <i class="bi bi-plus-circle-dotted"></i>
                                                             </button>
@@ -179,41 +179,6 @@
                                             </ul>
                                         @endforeach
                                     </td>
-                                    {{-- <td>
-                                        @foreach ($tim as $tims)
-                                            @foreach ($tims->karyawan as $item5)
-                                                <ul>
-                                                    @php
-                                                        $tahapsatu = \App\Models\Penilaian\PenilaianSatu::where(
-                                                            'karyawan_id',
-                                                            $item5->id,
-                                                        )
-                                                            ->where('penilai_id', $item->id)
-                                                            ->first();
-                                                    @endphp
-                                                    <li>
-                                                        @if (!$tahapsatu || $tahapsatu->status_penilaian == 'Belum Dinilai')
-                                                            <form action="{{ route('karyawan.penilaian.satu', $item->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="karyawan_id"
-                                                                    value="{{ $item5->id }}">
-                                                                <input type="hidden" name="penilai_id"
-                                                                    value="{{ $item->id }}">
-                                                                <button type="submit" class="btn btn-dark fs-4">
-                                                                    <i class="bi bi-plus-circle-dotted"></i>
-                                                                </button>
-                                                            </form>
-                                                        @else
-                                                            <span class="btn btn-success disabled">
-                                                                <i class="bi bi-check-circle"></i>
-                                                            </span>
-                                                        @endif
-                                                    </li>
-                                                </ul>
-                                            @endforeach
-                                        @endforeach
-                                    </td> --}}
                                 </tr>
                             @endforeach
                         @endif
