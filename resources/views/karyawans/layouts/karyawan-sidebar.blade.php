@@ -80,7 +80,7 @@
                 <a class="sidebar-link {{ Str::startsWith(request()->path(), 'karyawann/penilaian/') ? 'active' : '' }}"
                     href="{{ route('karyawan.penilaian.rekankerja') }}" aria-expanded="false">
                     <span>
-                        <i class="bi bi-file-earmark-person-fill"></i>
+                        <i class="bi bi-person-fill-check"></i>
                     </span>
                     <span class="hide-menu">Penilaian Rekan Kerja</span>
                 </a>
@@ -95,7 +95,7 @@
                     <span>
                         <i class="bi bi-file-earmark-person-fill"></i>
                     </span>
-                    <span class="hide-menu">Lapora Nilai Kinerja</span>
+                    <span class="hide-menu">Laporan Nilai Kinerja</span>
                 </a>
             </li>
         </ul>

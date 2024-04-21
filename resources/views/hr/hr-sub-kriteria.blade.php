@@ -7,9 +7,8 @@
             <div class="card mt-3">
                 <div class="card-header">
                     <h2 class="page-heading">Tabel Sub Kriteria</h2>
-                    <p class="p-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat enim, vel nisi quis, minus
-                        voluptas
-                        ullam perspiciatis ut incidunt ex voluptate. Eos esse nulla ut iusto, enim quasi voluptatum. Asperiores.
+                    <p class="p-1">
+                        Bobot setiap subkriteria tidak boleh melebihi bobot setiap kriteria yang telah di tentukan pada menu kriteria
                     </p>
                 </div>
                 <div class="card-body">

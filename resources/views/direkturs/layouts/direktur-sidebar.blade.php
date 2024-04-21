@@ -61,7 +61,7 @@
                 <a class="sidebar-link {{ Str::startsWith(request()->path(), 'direktur/proyek') ? 'active' : '' }}"
                     href="{{ route('direktur.proyek') }}" aria-expanded="false">
                     <span>
-                        <i class="bi bi-file-earmark-person-fill"></i>
+                        <i class="bi bi-journal-text"></i>
                     </span>
                     <span class="hide-menu">Daftar Proyek</span>
                 </a>
@@ -70,7 +70,7 @@
                 <a class="sidebar-link {{ 'direktur/kalender-proyek' == request()->path() ? 'active' : '' }}"
                     href="{{ route('direktur.kalender.proyek') }}" aria-expanded="false">
                     <span>
-                        <i class="bi bi-file-earmark-person-fill"></i>
+                        <i class="bi bi-calendar-week-fill"></i>
                     </span>
                     <span class="hide-menu">Kalender Proyek</span>
                 </a>
@@ -83,7 +83,7 @@
                 <a class="sidebar-link {{ Str::startsWith(request()->path(), 'direktur/klien') ? 'active' : '' }}"
                     href="{{ route('direktur.klien') }}" aria-expanded="false">
                     <span>
-                        <i class="bi bi-file-earmark-person-fill"></i>
+                        <i class="bi bi-person-lines-fill"></i>
                     </span>
                     <span class="hide-menu">Daftar Klien</span>
                 </a>
@@ -92,7 +92,7 @@
                 <a class="sidebar-link {{ Str::startsWith(request()->path(), 'direktur/tim') ? 'active' : '' }}"
                     href="{{ route('direktur.tim') }}" aria-expanded="false">
                     <span>
-                        <i class="bi bi-file-earmark-person-fill"></i>
+                        <i class="bi bi-people-fill"></i>
                     </span>
                     <span class="hide-menu">Daftar Tim</span>
                 </a>
@@ -105,7 +105,7 @@
                 <a class="sidebar-link {{ Str::startsWith(request()->path(), 'direktur/penilaian') ? 'active' : '' }}"
                     href="{{ route('direktur.kelola.penilaian') }}" aria-expanded="false">
                     <span>
-                        <i class="bi bi-file-earmark-person-fill"></i>
+                        <i class="bi bi-person-fill-check"></i>
                     </span>
                     <span class="hide-menu">Penilaian</span>
                 </a>
@@ -118,7 +118,7 @@
                 <a class="sidebar-link {{ 'direktur/laporan-selesai' == request()->path() ? 'active' : '' }}"
                     href="{{ route('direktur.laporan.proyek') }}" aria-expanded="false">
                     <span>
-                        <i class="bi bi-file-earmark-person-fill"></i>
+                        <i class="bi bi-clipboard-check-fill"></i>
                     </span>
                     <span class="hide-menu">Laporan Proyek Selesai</span>
                 </a>
@@ -127,7 +127,7 @@
                 <a class="sidebar-link {{ 'direktur/laporan-hasil' == request()->path() ? 'active' : '' }}"
                     href="{{ route('direktur.laporan.hasil') }}" aria-expanded="false">
                     <span>
-                        <i class="bi bi-file-earmark-person-fill"></i>
+                        <i class="bi bi-clipboard2-check-fill"></i>
                     </span>
                     <span class="hide-menu">Laporan Kinerja Karyawan</span>
                 </a>

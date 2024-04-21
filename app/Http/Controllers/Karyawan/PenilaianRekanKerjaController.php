@@ -111,8 +111,6 @@ class PenilaianRekanKerjaController extends Controller
 
                 PenilaianDua::create([
                     'penilaianrekan_id' => $penilaian_id,
-                    // 'subkriteria_id' => $idSubKriteria,
-                    // 'kriteria_id' => $subKriteria->kriteria_id,
                     'rating' => $nilaiSubKriteria,
                 ]);
             }
@@ -157,22 +155,18 @@ class PenilaianRekanKerjaController extends Controller
         $periodeId = $penilaianSatu->periode_id;
         $karyawan = $penilaianSatu->karyawan_id;
 
-        // Hitung jumlah karyawan yang belum memberikan penilaian dalam periode yang sama
         $jumlahKaryawanBelumDinilai = PenilaianRekanKerja::where('status_penilaian', 'Belum Dinilai')
             ->where('periode_id', $periodeId)
             ->count();
         $jenispenilai = JenisPenilaian::where('nama_penilai', 'Rekan Kerja')->first();
 
-        // Jika semua karyawan dalam periode yang sama sudah memberikan penilaian
         if ($jumlahKaryawanBelumDinilai === 0) {
             $jumlahkaryawan = PenilaianRekanKerja::where('status_penilaian', 'Sudah Dinilai')
                 ->where('periode_id', $periodeId)
                 ->count();
-            // Hitung total nilai akhir dari semua penilaian dalam periode yang sama
             $totalNilaiAkhir = HasilPenilaianRekanKerja::where('karyawan_id', $karyawan)->sum('total_akhir');
             $totalsemua = $totalNilaiAkhir / $jumlahkaryawan;
             $totaldiambil = $totalsemua * $jenispenilai->nilai_bobot / 100;
-            // Simpan atau perbarui total nilai akhir semua karyawan dalam periode yang sama
             $totalNilaiAkhirSemua = HasilPenilaianSemua::where('karyawan_id', $karyawan)->where('periode_id', $periodeId)->first();
             if ($totalNilaiAkhirSemua) {
                 $totalNilaiAkhirSemua->update(['total_akhir_semua' => $totaldiambil]);
@@ -183,7 +177,6 @@ class PenilaianRekanKerjaController extends Controller
                     'karyawan_id' => $karyawan,
                     'total_akhir_semua' => $totaldiambil,
                 ]);
-                // $hasilrekankerja = $data->id;
                 $data->save();
                 $this->Setnilaiakhir($penilaian_id);
             }
@@ -201,8 +194,6 @@ class PenilaianRekanKerjaController extends Controller
         $hasilrekannull = TotalAkhir::whereNotNull('hasilrekankerja_id')->where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
 
         if ($hasildirekturnull || $hasilrekannull) {
-            // Jika kedua nilai tidak kosong, hitung total akhir dari rekan dan direktur
-
             $totalAkhir = TotalAkhir::where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
             if ($totalAkhir->hasildirektur_id == null) {
                 $totalAkhir->update([
@@ -218,7 +209,6 @@ class PenilaianRekanKerjaController extends Controller
                 ]);
             }
         } else {
-            // Jika kedua nilai kosong, langsung masukkan hasil rekan dan total akhir ke tabel total akhir
             TotalAkhir::create([
                 'karyawan_id' => $karyawanId,
                 'hasilrekankerja_id' => $hasilrekan->id,
@@ -226,7 +216,6 @@ class PenilaianRekanKerjaController extends Controller
                 'total_akhir' => $hasilrekan->total_akhir_semua,
             ]);
         }
-        // Tidak perlu tindakan jika hanya salah satu nilai yang kosong, karena tidak ada informasi yang cukup
     }
 
     public function laporan()

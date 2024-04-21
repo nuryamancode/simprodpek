@@ -18,21 +18,21 @@
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link {{ Str::startsWith(request()->path(), 'hr/manajemen-user') ? 'active' : '' }}"
-                        href="{{ route('hr.manajemen.user') }}"><i data-feather="clipboard"
+                        href="{{ route('hr.manajemen.user') }}"><i data-feather="user"
                             class="feather-icon text-white"></i>
                         <span class="hide-menu text-white">Manajemen User</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link {{ Str::startsWith(request()->path(), 'hr/data-karyawan') ? 'active' : '' }}"
-                        href="{{ route('hr.data.karyawan') }}"><i data-feather="clipboard"
+                        href="{{ route('hr.data.karyawan') }}"><i data-feather="users"
                             class="feather-icon text-white"></i>
                         <span class="hide-menu text-white">Data Karyawan</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link {{ Str::startsWith(request()->path(), 'hr/bidang') ? 'active' : '' }}"
-                        href="{{ route('hr.bidang') }}"><i data-feather="clipboard"
+                        href="{{ route('hr.bidang') }}"><i data-feather="briefcase"
                             class="feather-icon text-white"></i>
                         <span class="hide-menu text-white">Data Bidang</span>
                     </a>

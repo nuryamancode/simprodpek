@@ -1,4 +1,4 @@
-@extends('auths.layouts.base-auth', ['title'=>'Login'])
+@extends('auths.layouts.base-auth', ['title' => 'Login'])
 
 @section('konten')
     <div class="text border-container">
@@ -15,7 +15,6 @@
         @if (session('success'))
             <div class="alert alert-success mt-2 text-start" style="margin-left: 45px; margin-right: 45px">
                 {{ session('success') }}
-                {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
             </div>
         @endif
         <!-- Form Login -->
@@ -30,11 +29,10 @@
                 <input type="password" id="password" name="password" placeholder="Masukkan Password">
             </div>
             <button class="neon-button login-button mt-3 mb-3" type="submit">Login</button>
-            <p class="text-center">Belum punya akun? <a class="text-center" href="{{ route('register') }}"
-                    style="text-decoration: none; color: #00168D;">Registrasi</a>
+            <p class="text-center">Belum punya akun? <a class="text-center text-info" style="text-decoration: none;" href="{{ route('register') }}">Registrasi</a>
             </p>
-            <p class="text-center">Lupa Password? <a class="text-center" href="{{ route('password.request') }}"
-                    style="text-decoration: none; color: #00168D;">Reset Password</a>
+            <p class="text-center">Lupa Password? <a class="text-center text-info" style="text-decoration: none;" href="{{ route('password.request') }}">Reset
+                    Password</a>
             </p>
         </form>
     </div>

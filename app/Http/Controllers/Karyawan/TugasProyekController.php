@@ -97,9 +97,6 @@ class TugasProyekController extends Controller
         }
     }
 
-
-
-
     public function tugas_selesai()
     {
         $user_id = auth()->id();

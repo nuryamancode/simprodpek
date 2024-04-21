@@ -23,7 +23,7 @@
                             </div>
                             <div class="col text-center">
                                 <div class="d-flex align-items-center justify-content-end">
-                                    <i class="bi bi-people-fill fs-8 text-success"></i>
+                                    <i class="bi bi-clipboard2-data-fill fs-8 text-success"></i>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                             </div>
                             <div class="col text-center">
                                 <div class="d-flex align-items-center justify-content-end">
-                                    <i class="bi bi-people-fill fs-8 text-warning"></i>
+                                    <i class="bi bi-clipboard2-check-fill fs-8 text-warning"></i>
                                 </div>
                             </div>
                         </div>

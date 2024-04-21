@@ -62,26 +62,6 @@ class KalenderController extends Controller
         }
     }
 
-    // public function update_data(Request $request, $id_calendar)
-    // {
-    //     $calender = Calendar::find($id_calendar);
-    //     if (!$calender) {
-    //         alert()->toast('Acara tidak ditemukan', 'error');
-    //     }
-
-    //     $proyek_id = $request->input('proyek_id');
-    //     $proyek = Proyek::find($proyek_id);
-
-    //     $calender->update([
-    //         'events_name' => $request->input('nama_acara'),
-    //         'proyek_id' => $proyek->id_proyek,
-    //         'description' => $request->input('description'),
-    //     ]);
-
-    //         alert()->toast('Acara berhasil diperbaharui', 'success');
-    //         return redirect()->back();
-    // }
-
 
     public function delete(MKalender $kalender)
     {

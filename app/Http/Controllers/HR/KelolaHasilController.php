@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\MHr;
 use App\Models\Penilaian\TotalAkhir;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class KelolaHasilController extends Controller
 {

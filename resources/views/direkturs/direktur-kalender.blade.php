@@ -193,7 +193,7 @@
                 if (kalender.style.display === 'none') {
                     kalender.style.display = 'block';
                     tabelacara.style.display = 'none';
-                    toggleButton.innerHTML = '<i class="bi bi-calendar2-event-fill"></i> Edit Acara';
+                    toggleButton.innerHTML = '<i class="bi bi-calendar2-event-fill"></i> Hapus Acara';
                     titlename.innerHTML = 'Kalender Proyek';
                 } else {
                     kalender.style.display = 'none';

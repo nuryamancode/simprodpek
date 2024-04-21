@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\MDirektur;
 use App\Models\MKaryawan;
 use App\Models\MNotifikasi;
-use App\Models\MSubKriteria;
 use App\Models\Penilaian\HasilPenilaianDirektur;
 use App\Models\Penilaian\HasilPenilaianSemua;
 use App\Models\Penilaian\JenisPenilaian;
@@ -14,7 +13,6 @@ use App\Models\Penilaian\KriteriaDirektur;
 use App\Models\Penilaian\Penilai;
 use App\Models\Penilaian\PenilaianDua;
 use App\Models\Penilaian\Penilaiankaryawan;
-use App\Models\Penilaian\PenilaianSatu;
 use App\Models\Penilaian\SubKriteriaDirektur;
 use App\Models\Penilaian\TotalAkhir;
 use Illuminate\Support\Facades\Auth;
@@ -108,8 +106,6 @@ class PenilaianController extends Controller
 
                 PenilaianDua::create([
                     'penilaiankaryawan_id' => $penilaian_id,
-                    // 'subkriteria_id' => $idSubKriteria,
-                    // 'kriteria_id' => $subKriteria->kriteria_id,
                     'rating' => $nilaiSubKriteria,
                 ]);
             }
@@ -165,14 +161,12 @@ class PenilaianController extends Controller
         $hasilrekannull = TotalAkhir::whereNotNull('hasilrekankerja_id')->where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
 
         if ($hasilrekannull) {
-            // Jika kedua nilai tidak kosong, hitung total akhir dari rekan dan direktur
             $totalnilairekan = $hasilrekan->total_akhir_semua;
             $totalnilaidirektur = $hasildirektur->total_akhir;
             $hasilTotal = $totalnilairekan + $totalnilaidirektur;
 
             $totalAkhir = TotalAkhir::where('karyawan_id', $karyawanId)->where('periode_id', $periodeId)->first();
             if ($totalAkhir) {
-                // Jika total akhir sudah ada, lakukan update
                 $totalAkhir->update([
                     'hasildirektur_id' => $hasildirektur->id,
                     'total_akhir' => $hasilTotal,

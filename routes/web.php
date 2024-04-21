@@ -44,13 +44,14 @@ Route::get('/maintenance', function(){return view('components.maintenance');})->
 Route::get('/home', [AuthController::class, 'home_redirect']);
 Route::middleware('guest')->group(function () {
     Route::get('/', [AuthController::class, 'index'])->name('login');
+    Route::get('/login', [AuthController::class, 'index'])->name('login');
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/proses-register', [AuthController::class, 'proses_register'])->name('proses.register');
     Route::get('/lupa-password', [LupaPasswordController::class, 'index'])->name('password.request');
-    Route::get('/reset-password', [LupaPasswordController::class, 'index2'])->name('password.reset');
+    Route::get('/reset-password/{token}', [LupaPasswordController::class, 'index2'])->name('password.reset');
     Route::post('/lupa-password', [LupaPasswordController::class, 'forget_password_send'])->name('password.email');
-    Route::post('/reset-password', [LupaPasswordController::class, 'reset_password'])->name('password.update');
+    Route::post('/reset-password-post', [LupaPasswordController::class, 'reset_password'])->name('password.update');
 });
 
 Route::middleware('auth')->group(function () {

@@ -36,7 +36,7 @@
                                 </h6>
                             </div>
                             <div class="ms-auto mt-md-3 mt-lg-0">
-                                <span class="opacity-7 text-muted"><i data-feather="user-plus"></i></span>
+                                <span class="opacity-7 text-muted"><i data-feather="users"></i></span>
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                                 </h6>
                             </div>
                             <div class="ms-auto mt-md-3 mt-lg-0">
-                                <span class="opacity-7 text-muted"><i data-feather="dollar-sign"></i></span>
+                                <span class="opacity-7 text-muted"><i data-feather="briefcase"></i></span>
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                                 </h6>
                             </div>
                             <div class="ms-auto mt-md-3 mt-lg-0">
-                                <span class="opacity-7 text-muted"><i data-feather="file-plus"></i></span>
+                                <span class="opacity-7 text-muted"><i data-feather="user"></i></span>
                             </div>
                         </div>
                     </div>

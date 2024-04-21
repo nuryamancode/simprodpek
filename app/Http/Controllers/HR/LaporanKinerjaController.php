@@ -4,12 +4,8 @@ namespace App\Http\Controllers\HR;
 
 use App\Http\Controllers\Controller;
 use App\Models\MHr;
-use App\Models\MKaryawan;
-use App\Models\MPeriode;
 use App\Models\Penilaian\TotalAkhir;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use PDF;
 
 class LaporanKinerjaController extends Controller
 {

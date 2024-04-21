@@ -105,16 +105,13 @@ class KlienController extends Controller
         $data->alamat = $request->input('alamat');
         $data->nomor_handphone = $request->input('nomor_handphone');
 
-        // Periksa apakah ada file yang diunggah
         if ($request->hasFile('berkas_klien')) {
-            // Hapus file lama jika ada
             if ($data->berkas_klien) {
                 $oldFilePath = public_path('dokumen/berkas_klien/' . $data->berkas_klien);
                 if (file_exists($oldFilePath)) {
                     unlink($oldFilePath);
                 }
             }
-            // Simpan file yang baru
             $file = $request->file('berkas_klien');
             $filename = $file->getClientOriginalName();
             $file->move(public_path('dokumen/berkas_klien/'), $filename);

@@ -20,7 +20,7 @@
                             </div>
                             <div class="col text-center">
                                 <div class="d-flex align-items-center justify-content-end">
-                                    <i class="bi bi-people-fill fs-8 text-info"></i>
+                                    <i class="bi bi-person-lines-fill fs-8 text-info"></i>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                             </div>
                             <div class="col text-center">
                                 <div class="d-flex align-items-center justify-content-end">
-                                    <i class="bi bi-people-fill fs-8 text-danger"></i>
+                                    <i class="bi bi-journal-text fs-8 text-danger"></i>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                             </div>
                             <div class="col text-center">
                                 <div class="d-flex align-items-center justify-content-end">
-                                    <i class="bi bi-people-fill fs-8 text-success"></i>
+                                    <i class="bi bi-journal-check fs-8 text-success"></i>
                                 </div>
                             </div>
                         </div>
@@ -66,12 +66,12 @@
                     <div class="card-body pt-3 p-4">
                         <div class="row">
                             <div class="col-8">
-                                <h6 class="fw-semibold fs-4">Jumlah Proyek Selesai</h6>
+                                <h6 class="fw-semibold fs-4">Jumlah Proyek Proses</h6>
                                 <div>{{ $jumlahproyekproses }}</div>
                             </div>
                             <div class="col text-center">
                                 <div class="d-flex align-items-center justify-content-end">
-                                    <i class="bi bi-people-fill fs-8 text-warning"></i>
+                                    <i class="bi bi-journal-minus fs-8 text-warning"></i>
                                 </div>
                             </div>
                         </div>

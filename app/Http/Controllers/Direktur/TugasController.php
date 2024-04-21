@@ -52,7 +52,6 @@ class TugasController extends Controller
         return view('direkturs.direktur-tugas', $data);
     }
 
-    // tambah_tugas method
     public function save(Request $request)
     {
         $proyekid = $request->input('proyek_id');
@@ -61,12 +60,10 @@ class TugasController extends Controller
         $karyawanid = $request->input('karyawan_id');
         $karyawan = MKaryawan::find($karyawanid);
 
-        // Mendapatkan objek direktur
         $direktur = auth()->user()->direktur;
         $file = $request->file('berkas_tugas');
         $filename = $file->getClientOriginalName();
         $file->move('assets/dokumen/berkas_tugas/', $filename);
-        // Membuat objek Tugas
         $data = new MTugas([
             'fase_proyek' => $request->input('fase_proyek'),
             'nama_tugas' => $request->input('nama_tugas'),
@@ -77,8 +74,6 @@ class TugasController extends Controller
             'm_karyawan_id' => $karyawanid,
             'proyek_id' => $proyekid,
         ]);
-
-        // Simpan objek Tugas
         if ($data->save()) {
             alert()->toast('Data berhasil ditambahkan', 'success');
             $user_id_karyawan = $karyawan->user_id;
@@ -110,11 +105,6 @@ class TugasController extends Controller
 
         if ($request->hasFile('berkas_tugas')) {
             $file = $request->file('berkas_tugas');
-
-            // if ($tugas->berkas_tugas) {
-            //     Storage::disk('public')->delete('berkas/' . $tugas->berkas_tugas);
-            // }
-
             $filename = $file->getClientOriginalName();
             $file->move('assets/dokumen/berkas_tugas/', $filename);
 

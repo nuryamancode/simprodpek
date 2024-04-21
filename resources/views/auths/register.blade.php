@@ -19,7 +19,7 @@
             </div>
         @endif
         <!-- Form Login -->
-        <form class="login-form" action="{{ url('/register') }}" method="POST">
+        <form class="login-form" action="{{ route('proses.register') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="name">Nama Lengkap</label>

@@ -24,7 +24,7 @@
                 @endif
                 <div class="text-end mb-3">
                     <a href="#" class="btn btn-success" data-bs-target="#modalTambah" data-bs-toggle="modal">
-                        <i class="bi bi-person-fill-add"></i>
+                        <i class="bi bi-journal-plus"></i>
                         Tambah Data
                     </a>
                 </div>
@@ -93,7 +93,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="modalTambahLabel">
-                            <i class="bi bi-person-fill-add"></i>
+                            <i class="bi bi-journal-plus"></i>
                             Tambah Data
                         </h1>
                     </div>
