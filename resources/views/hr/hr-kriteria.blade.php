@@ -172,11 +172,11 @@
                         @csrf
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Kriteria</label>
-                            <input type="text" class="form-control" id="recipient-name" name="nama_kriteria">
+                            <input type="text" class="form-control" id="recipient-name" required name="nama_kriteria">
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Nilai Preferensi</label>
-                            <input type="number" class="form-control" id="recipient-name" name="bobot" max="100">
+                            <input type="number" class="form-control" id="recipient-name" required name="bobot" max="100">
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Tambah</button>
@@ -206,12 +206,12 @@
                             @method('PUT')
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Nama Kriteria</label>
-                                <input type="text" class="form-control" id="recipient-name" name="nama_kriteria"
+                                <input type="text" class="form-control" id="recipient-name" required name="nama_kriteria"
                                     value="{{ $item->nama_kriteria }}">
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Nilai Preferensi</label>
-                                <input type="number" class="form-control" id="recipient-name" name="bobot_kriteria"
+                                <input type="number" class="form-control" id="recipient-name" required name="bobot_kriteria"
                                     max="100" value="{{ intval($item->bobot_kriteria) }}">
                             </div>
                             <div class="modal-footer">

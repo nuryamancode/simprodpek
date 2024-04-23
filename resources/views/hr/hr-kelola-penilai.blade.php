@@ -131,7 +131,7 @@
                         @csrf
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Periode</label>
-                            <input type="number" name="periode" id="periode" class="form-control">
+                            <input type="number" required name="periode" id="periode" class="form-control">
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Tambah</button>

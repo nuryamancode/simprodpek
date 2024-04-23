@@ -31,7 +31,7 @@
                                 <td>{{ \Carbon\Carbon::parse($item->deadline_tugas)->locale('id_ID')->isoFormat('D MMMM Y') }}
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('karyawan.detail.tugas-selesai', $item->id) }}"
+                                    <a href="{{ route('karyawan.tugas.selesai.karyawan.detail', $item->id) }}"
                                         class="btn btn-primary">
                                         <i class="bi bi-eye"></i>
                                     </a>

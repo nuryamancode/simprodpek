@@ -112,7 +112,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label">Nama Klien</label>
-                            <select name="klien_id" id="" class="form-select">
+                            <select required name="klien_id" id="" class="form-select">
                                 @if (count($klien) > 0)
                                     @foreach ($klien as $item)
                                         <option value="{{ $item->id }}">{{ $item->nama_klien }}</option>

@@ -173,7 +173,7 @@ class TugasController extends Controller
 
         alert()->toast('Tugas Selesai', 'success');
 
-        return redirect()->route('direktur.penilaian', ['tugas_id' => $tugas->id]);
+        return redirect()->back();
     }
 
     public function tugas_belum_selesai(string $id_tugas, Request $request)

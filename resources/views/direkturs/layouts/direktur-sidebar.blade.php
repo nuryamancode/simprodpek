@@ -107,7 +107,7 @@
                     <span>
                         <i class="bi bi-person-fill-check"></i>
                     </span>
-                    <span class="hide-menu">Penilaian</span>
+                    <span class="hide-menu">Penilaian Karyawan</span>
                 </a>
             </li>
             <li class="nav-small-cap">
@@ -118,7 +118,7 @@
                 <a class="sidebar-link {{ 'direktur/laporan-selesai' == request()->path() ? 'active' : '' }}"
                     href="{{ route('direktur.laporan.proyek') }}" aria-expanded="false">
                     <span>
-                        <i class="bi bi-clipboard-check-fill"></i>
+                        <i class="bi bi-clipboard2-check-fill"></i>
                     </span>
                     <span class="hide-menu">Laporan Proyek Selesai</span>
                 </a>

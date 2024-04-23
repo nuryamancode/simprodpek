@@ -51,10 +51,7 @@
 
                                 <td class="text-center">
                                     @if ($item->status_tugas === 'Selesai')
-                                        <a href="{{ route('karyawan.tugas.selesai.karyawan.detail', $item->id) }}"
-                                            class="btn btn-primary">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
+                                        {{null}}
                                     @else
                                         <a href="{{ route('karyawan.tugas.karyawan.detail', $item->id) }}"
                                             class="btn btn-primary">

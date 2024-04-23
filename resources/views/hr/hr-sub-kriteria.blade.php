@@ -153,15 +153,15 @@
                         </div>
                         <div class="mb-3">
                             <label for="nama_sub" class="form-label">Sub Kriteria</label>
-                            <input type="text" name="nama_sub" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label for="bobot_sub" class="form-label">Nilai Bobot</label>
-                            <input type="number" name="bobot_sub" class="form-control">
+                            <input type="text" required name="nama_sub" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label for="nama_sub" class="form-label">Pertanyaan</label>
-                            <textarea class="form-control" placeholder="" id="floatingTextarea" name="pertanyaan" style="height: 80px"></textarea>
+                            <textarea class="form-control" placeholder="" id="floatingTextarea" required name="pertanyaan" style="height: 80px"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bobot_sub" class="form-label">Nilai Bobot</label>
+                            <input type="number" required name="bobot_sub" class="form-control">
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Tambah</button>
@@ -191,15 +191,15 @@
                             @method('PUT')
                             <div class="mb-3">
                                 <label for="nama_sub" class="form-label">Sub Kriteria</label>
-                                <textarea class="form-control" placeholder="" id="floatingTextarea" name="nama_sub" style="height: 80px">{{ $item->nama_subkriteria }}</textarea>
+                                <textarea class="form-control" placeholder="" id="floatingTextarea" required name="nama_sub" style="height: 80px">{{ $item->nama_subkriteria }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="nama_sub" class="form-label">Pertanyaan</label>
-                                <textarea class="form-control" placeholder="" id="floatingTextarea" name="pertanyaan" style="height: 80px">{{ $item->pertanyaan }}</textarea>
+                                <textarea class="form-control" placeholder="" id="floatingTextarea" required name="pertanyaan" style="height: 80px">{{ $item->pertanyaan }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="kriteria" class="col-form-label">Kriteria</label>
-                                <select name="kriteria_id" id="kriteria" class="form-select">
+                                <select required name="kriteria_id" id="kriteria" class="form-select">
                                     <option value="{{ $item->kriteriaDirektur->id }}" selected>
                                         {{ $item->kriteriaDirektur->nama_kriteria }}</option>
                                     @foreach ($subkriteriadirektur as $item)
@@ -209,7 +209,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="bobot_sub" class="form-label">Nilai Bobot</label>
-                                <input type="number" name="bobot_sub" class="form-control" value="{{ $item->bobot_sub }}">
+                                <input type="number" required name="bobot_sub" class="form-control" value="{{ $item->bobot_sub }}">
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Ubah</button>

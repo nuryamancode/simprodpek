@@ -107,10 +107,7 @@ class TugasProyekController extends Controller
         $jumlah = $jumlahnotif->count();
         $proyek = MProyek::all();
         $klien = MKlien::all();
-        $tugas = MTugas::where('m_karyawan_id', $karyawan->id_karyawan)->whereIn('proyek_id', function ($query) {
-            $query->select('id')->from('proyek')->where('status_tugas', 'Selesai');
-        })
-            ->get();
+        $tugas = MTugas::where('m_karyawan_id', $karyawan->id)->where('status_tugas', 'Selesai')->get();
         $data = [
 
             'role' => $role,

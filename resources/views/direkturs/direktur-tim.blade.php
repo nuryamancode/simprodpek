@@ -84,7 +84,7 @@
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Pilih Anggota Tim</label>
                             <div id="inputSelectContainer">
-                                <select name="karyawan_id[]" class="form-select">
+                                <select required name="karyawan_id[]" class="form-select">
                                     @if (count($mkaryawann) > 0)
                                         @foreach ($mkaryawann as $mkaryawann)
                                             <option value="{{ $mkaryawann->id }}">{{ $mkaryawann->nama_lengkap }} -

@@ -78,14 +78,14 @@
                         @csrf
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Nama Penilai</label>
-                            <select name="nama_penilai" id="" class="form-select">
+                            <select required name="nama_penilai" id="" class="form-select">
                                 <option value="Direktur">Direktur</option>
                                 <option value="Rekan Kerja">Rekan Kerja</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Nilai Bobot</label>
-                            <input type="number" max="100" class="form-control" id="recipient-name" name="nilai_bobot">
+                            <input type="number" max="100" class="form-control" id="recipient-name" required name="nilai_bobot">
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Tambah</button>

@@ -22,11 +22,11 @@
                     <div class="col text-end">
                         <a href="#" class="btn btn-primary" data-bs-target="#tambahModal" data-bs-toggle="modal">
                             <i class="bi bi-calendar2-plus-fill"></i>
-                            Tambah Acara
+                            Tambah Proyek
                         </a>
                         <a href="#" class="btn btn-danger" id="toggleButton">
                             <i class="bi bi-calendar2-event-fill"></i>
-                            Hapus Acara
+                            Hapus Proyek
                         </a>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="tambahModalLabel">
                         <i class="bi bi-calendar2-plus-fill"></i>
-                        Tambah Acara
+                        Tambah Proyek
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>

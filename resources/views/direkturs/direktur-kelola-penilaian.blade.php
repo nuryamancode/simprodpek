@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h2 class="title-name">Tabel Kelola Penilaian</h2>
+                <h2 class="title-name">Penilaian Karyawan</h2>
             </div>
             <div class="card-body">
                 @if ($errors->any())

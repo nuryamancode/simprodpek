@@ -42,19 +42,22 @@ class SubKriteriaController extends Controller
         $kriteria = KriteriaDirektur::find($request->input('kriteria_id'));
         $bobot_kriteria = $kriteria->bobot_kriteria;
         $bobot_subkriteria = $request->input('bobot_sub');
+        $total_bobot_subkriteria = SubKriteriaDirektur::where('kriteria_id', $request->input('kriteria_id'))->sum('bobot_sub');
 
-        if ($bobot_subkriteria > $bobot_kriteria) {
+        if (($total_bobot_subkriteria + $bobot_subkriteria) > $bobot_kriteria) {
             alert()->toast('Total bobot subkriteria tidak boleh melebihi bobot kriteria.', 'error');
-            return redirect()->back()->withInput();
+            return redirect()->back();
+        } else {
+            $data = SubKriteriaDirektur::create([
+                'kriteria_id' => $request->input('kriteria_id'),
+                'nama_subkriteria' => $request->input('nama_sub'),
+                'pertanyaan' => $request->input('pertanyaan'),
+                'bobot_sub' => $bobot_subkriteria,
+            ]);
+            $data->save();
+            alert()->toast('Data berhasil ditambahkan', 'success');
+            return redirect()->back();
         }
-        SubKriteriaDirektur::create([
-            'kriteria_id' => $request->input('kriteria_id'),
-            'nama_subkriteria' => $request->input('nama_sub'),
-            'pertanyaan' => $request->input('pertanyaan'),
-            'bobot_sub' => $bobot_subkriteria,
-        ]);
-        alert()->toast('Data berhasil ditambahkan', 'success');
-        return redirect()->back();
     }
 
     public function update_sub_direktur(Request $request, $id_subkriteria)
@@ -63,15 +66,20 @@ class SubKriteriaController extends Controller
         $kriteria = KriteriaDirektur::find($kriteriaid);
         $bobot_kriteria = $kriteria->bobot_kriteria;
         $bobot_sub = $request->input('bobot_sub');
-        if ($bobot_sub > $bobot_kriteria) {
-            alert()->toast('Total bobot subkriteria tidak boleh melebihi bobot kriteria.', 'error');
-            return redirect()->back()->withInput();
-        }
         $sub = SubKriteriaDirektur::find($id_subkriteria);
+
         if (!$sub) {
             alert()->toast('Sub kriteria tidak ditemukan', 'error');
             return redirect()->back();
         }
+        $total_bobot_subkriteria = SubKriteriaDirektur::where('kriteria_id', $request->input('kriteria_id'))
+            ->where('id', '!=', $id_subkriteria)
+            ->sum('bobot_sub');
+        if (($total_bobot_subkriteria + $bobot_sub) > $bobot_kriteria) {
+            alert()->toast('Total bobot subkriteria tidak boleh melebihi bobot kriteria.', 'error');
+            return redirect()->back();
+        }
+
         $sub->update([
             'nama_subkriteria' => $request->input('nama_sub'),
             'pertanyaan' => $request->input('pertanyaan'),
@@ -81,6 +89,7 @@ class SubKriteriaController extends Controller
         alert()->toast('Data berhasil diperbaharui', 'success');
         return redirect()->back();
     }
+
 
 
     public function delete_sub_direktur(SubKriteriaDirektur $subKriteria)
@@ -95,22 +104,25 @@ class SubKriteriaController extends Controller
 
     public function save_sub_rekan_kerja(Request $request)
     {
-        $kriteriaid = $request->input('kriteria_id');
-        $kriteria = KriteriaRekanKerja::find($kriteriaid);
+        $kriteria = KriteriaRekanKerja::find($request->input('kriteria_id'));
         $bobot_kriteria = $kriteria->bobot_kriteria;
-        $bobot_sub = $request->input('bobot_sub');
-        if ($bobot_sub > $bobot_kriteria) {
+        $bobot_subkriteria = $request->input('bobot_sub');
+        $total_bobot_subkriteria = SubKriteriaRekanKerja::where('kriteria_id', $request->input('kriteria_id'))->sum('bobot_sub');
+
+        if (($total_bobot_subkriteria + $bobot_subkriteria) > $bobot_kriteria) {
             alert()->toast('Total bobot subkriteria tidak boleh melebihi bobot kriteria.', 'error');
             return redirect()->back();
+        } else {
+            $data = SubKriteriaRekanKerja::create([
+                'kriteria_id' => $request->input('kriteria_id'),
+                'nama_subkriteria' => $request->input('nama_sub'),
+                'pertanyaan' => $request->input('pertanyaan'),
+                'bobot_sub' => $bobot_subkriteria,
+            ]);
+            $data->save();
+            alert()->toast('Data berhasil ditambahkan', 'success');
+            return redirect()->back();
         }
-        SubKriteriaRekanKerja::create([
-            'kriteria_id' => $kriteriaid,
-            'nama_subkriteria' => $request->input('nama_sub'),
-            'pertanyaan' => $request->input('pertanyaan'),
-            'bobot_sub'=> $bobot_sub,
-        ]);
-        alert()->toast('Data berhasil ditambahkan', 'success');
-        return redirect()->back();
     }
 
 
@@ -120,15 +132,20 @@ class SubKriteriaController extends Controller
         $kriteria = KriteriaRekanKerja::find($kriteriaid);
         $bobot_kriteria = $kriteria->bobot_kriteria;
         $bobot_sub = $request->input('bobot_sub');
-        if ($bobot_sub > $bobot_kriteria) {
-            alert()->toast('Total bobot subkriteria tidak boleh melebihi bobot kriteria.', 'error');
-            return redirect()->back();
-        }
         $sub = SubKriteriaRekanKerja::find($id_subkriteria);
+
         if (!$sub) {
             alert()->toast('Sub kriteria tidak ditemukan', 'error');
             return redirect()->back();
         }
+        $total_bobot_subkriteria = SubKriteriaRekanKerja::where('kriteria_id', $request->input('kriteria_id'))
+            ->where('id', '!=', $id_subkriteria)
+            ->sum('bobot_sub');
+        if (($total_bobot_subkriteria + $bobot_sub) > $bobot_kriteria) {
+            alert()->toast('Total bobot subkriteria tidak boleh melebihi bobot kriteria.', 'error');
+            return redirect()->back();
+        }
+
         $sub->update([
             'nama_subkriteria' => $request->input('nama_sub'),
             'pertanyaan' => $request->input('pertanyaan'),

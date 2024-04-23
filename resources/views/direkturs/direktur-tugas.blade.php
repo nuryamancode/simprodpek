@@ -97,6 +97,7 @@
                                 <th class="text-center">Berkas Tugas</th>
                                 <th class="text-center">Upload Berkas</th>
                                 <th class="text-center">Status Tugas</th>
+                                <th class="text-center">Tanggal</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -178,6 +179,9 @@
                                         @endif
                                     </td>
                                     <td>
+                                    {{ \Carbon\Carbon::parse($item->updated_at)->locale('id_ID')->isoFormat('D MMMM Y') }}
+                                    </td>
+                                    <td>
                                         <a href="#" class="btn btn-danger" data-confirm-delete="true"
                                             onclick="konfirmasiHapus('{{ route('direktur.delete.tugas', $item->id) }}')">
                                             <i class="bi bi-trash-fill"></i>
@@ -235,26 +239,26 @@
                         <form action="{{ route('direktur.save.tugas') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="proyek_id" id="" value="{{ $id_proyek }}">
+                            <input type="hidden" required name="proyek_id" id="" value="{{ $id_proyek }}">
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Fase Proyek</label>
-                                <input type="text" class="form-control" id="recipient-name" name="fase_proyek">
+                                <input type="text" class="form-control" id="recipient-name" required name="fase_proyek">
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Tugas</label>
-                                <input type="text" class="form-control" id="recipient-name" name="nama_tugas">
+                                <input type="text" class="form-control" id="recipient-name" required name="nama_tugas">
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Deadline Tugas</label>
-                                <input type="date" class="form-control" id="recipient-name" name="deadline_tugas">
+                                <input type="date" class="form-control" id="recipient-name" required name="deadline_tugas">
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Berkas Tugas</label>
-                                <input type="file" class="form-control" id="recipient-name" name="berkas_tugas">
+                                <input type="file" class="form-control" id="recipient-name" required name="berkas_tugas">
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Penanggung Jawab</label>
-                                <select name="karyawan_id" id="" class="form-select">
+                                <select required name="karyawan_id" id="" class="form-select">
                                         @foreach ($proyek->tim->karyawan as $tims)
                                             <option value="{{ $tims->id }}">{{ $tims->nama_lengkap }} - {{ $tims->bidang->nama_bidang }}</option>
                                         @endforeach
@@ -262,7 +266,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Keterangan Tugas</label>
-                                <textarea class="form-control" id="floatingTextarea" style="height: 100px" name="keterangan_tugas"></textarea>
+                                <textarea class="form-control" id="floatingTextarea" style="height: 100px" required name="keterangan_tugas"></textarea>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Tambah</button>
@@ -518,6 +522,10 @@
                                         Belum ditambahkan
                                     @endif
                                 </label>
+                                <h6>Tanggal Pengiriman</h6>
+                                <p>
+                                {{ \Carbon\Carbon::parse($item->updated_at)->locale('id_ID')->isoFormat('D MMMM Y') }}
+                                </p>
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Catatan Karyawan</label>
